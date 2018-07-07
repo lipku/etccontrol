@@ -7,12 +7,17 @@ using namespace tinyxml2;
 AsioTcpServer::AsioTcpServer(int port, EtcRsu* pEtcRsu)
  {
   m_pAsioTcp = new CAsioTcp(this, port);
-  m_pAsioTcp->Start();
 
   m_pEtcRsu = pEtcRsu;
 
   m_currConn = NULL;
  }
+
+int AsioTcpServer::StartRun()
+{
+  m_pAsioTcp->Start();
+  return 0;
+}
 
  int AsioTcpServer::SendMsg(const char* pData, unsigned int nDataSize )
  {
@@ -41,16 +46,27 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
     XMLElement* elmtRoot = docXml.RootElement();
     if (elmtRoot)
     {
+       //printf( "elmtRoot===true\n");
         const XMLElement* vehElem = elmtRoot->FirstChildElement("vehplateNo");
         const XMLElement* moneyElem = elmtRoot->FirstChildElement("money");
         if(vehElem && moneyElem)
         {
+	//printf( "vehElem===true\n");
           const char* vehNo = vehElem->GetText();
           int money=0;
           moneyElem->QueryIntText( &money );
 
           printf( "vehNo=%s, money=%d\n", vehNo, money);
-          m_pEtcRsu->AddVehCost(vehNo,money);
+	  if(m_pEtcRsu == NULL)
+          {
+             printf( "m_pEtcRsu===null\n");
+	  }
+	  else
+          {
+	     m_pEtcRsu->AddVehCost(string(vehNo),money);
+          }		
+	  
+          
         }
     }
   }

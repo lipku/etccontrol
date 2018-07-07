@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
 
         AsioTcpServer tcpSrv(2000,&etcRsu);
         etcRsu.SetTcpSrvHandle(&tcpSrv);
+        tcpSrv.StartRun();
 
         while(getchar()!='q')
             sleep(1);

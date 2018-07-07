@@ -167,13 +167,14 @@ int EtcRsu::CloseDrv()
 
 int EtcRsu::AddVehCost(std::string VehNumber, int money)
 {
-    m_currVehNumer = VehNumber;
+    m_currVehNumer = VehNumber;// VehNumber;
     m_currPayMoney = money;
     return 0;
 }
 
 int EtcRsu::SetTcpSrvHandle(AsioTcpServer *tcpHandle)
 {
+    printf("tcpHandle=%x\n",tcpHandle);
     m_tcpSrvHandle = tcpHandle;
     return 0;
 }
@@ -326,12 +327,16 @@ int EtcRsu::sendC6(unsigned char rsctl, unsigned char* OBUId, int TradeMoney, ti
 
     //交易时间BCD码
     char sCurTime[64];
+    char sCurTime1[64];
     strftime(sCurTime, sizeof(sCurTime), "%Y%m%d%H%M%S",localtime(&TradeTime) );
+    printf("sCurTime=%s\n",sCurTime);
     bool ok=false;
     std::vector<unsigned char> bCurrTime;
-    ok = Str2Bcd(bCurrTime,sCurTime);
+    //ok = Str2Bcd(bCurrTime,sCurTime);
+    ok = Str2Bcdch(sCurTime1,sCurTime);
     for (int i=0;i<7;i++){
-        msgC6->PurchaseTime[i] = bCurrTime.at(i);
+        msgC6->PurchaseTime[i] = sCurTime1[i];
+        //msgC6->PurchaseTime[i] = bCurrTime.at(i);
     }
     char* pos0019 = (char*)&f0019;
     memcpy(&(msgC6->f0019),pos0019+3,sizeof(f0019)-3 );
@@ -406,6 +411,7 @@ void EtcRsu::receiveB0(std::vector<unsigned char>& buff)
 	   openAntenna(true);     
         //sendC1(msgB0->RSCTL);
     }
+    m_RSUTerminalld = Bin2Hex(msgB0->RSUTerminalld1, sizeof(msgB0->RSUTerminalld1));
     //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("天线 PSAM1:%1 PSAM2:%2").arg(mTool->bin2hex((char*)(msgB0->RSUTerminalld1),sizeof(msgB0->RSUTerminalld1))).arg(mTool->bin2hex((char*)(msgB0->RSUTerminalld2),sizeof(msgB0->RSUTerminalld2))));
 }
 
@@ -432,10 +438,10 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
         unsigned char obuStatus = msgB2->OBUStatus[0];
         tmp = obuStatus &(unsigned char) 0x80;
         /// * 生成卡一级分散因子*/
-        unsigned char* pVehFactor = mCardFactor.data();
-        memcpy(pVehFactor,msgB2->Issuerldentifier,4);
-        memcpy(pVehFactor+4,msgB2->Issuerldentifier,4);
-    	/*if(mCardFactor.size()!=0)
+        //unsigned char* pVehFactor = mCardFactor.data();
+        //memcpy(pVehFactor,msgB2->Issuerldentifier,4);
+        //memcpy(pVehFactor+4,msgB2->Issuerldentifier,4);
+    	if(mCardFactor.size()!=0)
     	{
     	   mCardFactor.clear();
     	}
@@ -446,7 +452,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
     	for(int i = 0;i<4;i++)
     	{
                mCardFactor.push_back(msgB2->Issuerldentifier[i]);
-    	}*/
+    	}
 
         if (tmp >0)       ///* 判断OBU是否有卡 */
         {
@@ -455,6 +461,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
             return;
         }
 
+	 printf("send C1 trance\n");
         m_currVehInfo.sOBUID = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
         m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->Issuerldentifier, sizeof(msgB2->Issuerldentifier));
         ///* 判断OBU过期 */ //todo
@@ -478,10 +485,12 @@ void EtcRsu::receiveB3(std::vector<unsigned char>& buff)
     //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("OBU----标签号:%1;车牌号:%2; 车型:%3").arg(vehB3OBUID).arg(qVeh->mOBUPlate).arg(qVeh->mOBUCarType));
     
     //todo 保存车辆信息
-    m_currVehInfo.sPlateNumber = Bin2Hex(msgB3->PlateNumber, sizeof(msgB3->PlateNumber));
+    printf("car number=%s\n", msgB3->PlateNumber);
+    m_currVehInfo.sPlateNumber = std::string((const char*)msgB3->PlateNumber);//Bin2Hex(msgB3->PlateNumber, sizeof(msgB3->PlateNumber));
 
     //if(!m_currVehInfo.sPlateNumber.compare(m_currVehNumer)) //todo
     sendC1(msgB3->RSCTL,msgB3->OBUID,mCardFactor);//////////////
+    m_currVehNumer = "";
 
     return;
 }
@@ -510,10 +519,9 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
         uint* itmp  = (uint*)&cardblance;
         m_currVehInfo.beforeBlance =  *itmp;
 
-        m_currVehInfo.CardType = msgB4->CardType;
+        m_currVehInfo.CardType = msgB4->f0015.CardType;
         m_currVehInfo.PhysicalCardType = msgB4->PhysicalCardType;
-        m_currVehInfo.TransType = msgB4->TransType;
-        m_currVehInfo.CardType = msgB4->CardType;
+        m_currVehInfo.sCardSerialNo = Bin2Hex((unsigned char*)msgB4->f0015.CardID,sizeof(msgB4->f0015.CardID));
         m_currVehInfo.sCardID = Bin2Hex(msgB4->CardID,sizeof(msgB4->CardID));
         m_currVehInfo.sCardNetNo = Bin2Hex((unsigned char*)msgB4->f0015.CardNetNo,sizeof(msgB4->f0015.CardNetNo));
 
@@ -543,6 +551,7 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
     {
         m_currVehInfo.sPSAMNo = Bin2Hex((unsigned char*) (msgB5->PSAMNo),sizeof(msgB5->PSAMNo));  
         m_currVehInfo.sTransTime = Bin2Hex((unsigned char*) (msgB5->TransTime),sizeof(msgB5->TransTime));  
+        m_currVehInfo.TransType = msgB5->TransType;
 
         ///* IC卡交易总数
         unsigned char* tmpValue = (unsigned char *)&(m_currVehInfo.iICCPayserial);
@@ -574,6 +583,7 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
         m_currVehInfo.afterBlance = *itmp;
 
         ResonseTcpSrv(&m_currVehInfo);
+        memset(&m_currVehInfo,0,sizeof(VehInfo));
 
         sendC1(msgB5->RSCTL,msgB5->OBUID,mCardFactor);
         /*qVeh->mWorkName = "交易成功";
@@ -631,20 +641,21 @@ void EtcRsu::run()
         ok = mRsuComm.GetOneMsg(oneMsg);
 //            mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("获取到oneMsg-RSU数据"));
 	
-   	 for(int i = 0;i<oneMsg.size();i++)
-   	 {
-  	     printf("%02X ",oneMsg[i]);
-   	 }
-	printf("\n");
+   	 
         if (ok)
         {
+            for(int i = 0;i<oneMsg.size();i++)
+   	    {
+  	       printf("%02X ",oneMsg[i]);
+   	    }
+	    printf("\n");
             this->sendMsg2Logic(oneMsg);
         }
         else{
-            printf("check err\n");
+            //printf("check err\n");
+	    usleep(10*1000);
         }
       
-        usleep(100*1000);
     }
     CloseDrv();
 }
@@ -739,15 +750,17 @@ int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo)
     issueridElem->InsertFirstChild(doc->NewText(vehinfo->sIssuerldentifier.c_str()));
 
     XMLNode* chipnoElem = rootElem->InsertEndChild( doc->NewElement( "cardChipNo" ) );
-    chipnoElem->InsertFirstChild(doc->NewText(vehinfo->sCardID.c_str()));
+    chipnoElem->InsertFirstChild(doc->NewText(vehinfo->sCardSerialNo.c_str()));
 
     XMLNode* termElem = rootElem->InsertEndChild( doc->NewElement( "terminalId" ) );
-    termElem->InsertFirstChild(doc->NewText(vehinfo->sPSAMNo.c_str()));
+    termElem->InsertFirstChild(doc->NewText(m_RSUTerminalld.c_str()));
 
+    memset(buffer,0,sizeof(buffer));
     sprintf(buffer,"%d",vehinfo->iICCPayserial);
     XMLNode* cardSerialElem = rootElem->InsertEndChild( doc->NewElement( "cardSerialNo" ) );
     cardSerialElem->InsertFirstChild(doc->NewText(buffer));
 
+    memset(buffer,0,sizeof(buffer));
     sprintf(buffer,"%d",vehinfo->iPSAMTransSerial);
     XMLNode* psamSerialElem = rootElem->InsertEndChild( doc->NewElement( "psamSerialNo" ) );
     psamSerialElem->InsertFirstChild(doc->NewText(buffer));
@@ -755,25 +768,30 @@ int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo)
     XMLNode* cardRndElem = rootElem->InsertEndChild( doc->NewElement( "cardRnd" ) );
     cardRndElem->InsertFirstChild(doc->NewText(""));  //todo
 
-    sprintf(buffer,"%d",vehinfo->iTAC);
+    memset(buffer,0,sizeof(buffer));
+    sprintf(buffer,"%x",vehinfo->iTAC);
     XMLNode* tacElem = rootElem->InsertEndChild( doc->NewElement( "tac" ) );
     tacElem->InsertFirstChild(doc->NewText(buffer));
 
     XMLNode* cardNetElem = rootElem->InsertEndChild( doc->NewElement( "cardNetNo" ) );
     cardNetElem->InsertFirstChild(doc->NewText(vehinfo->sCardNetNo.c_str()));
 
+    memset(buffer,0,sizeof(buffer));
     sprintf(buffer,"%d",vehinfo->beforeBlance);
     XMLNode* transBeforeElem = rootElem->InsertEndChild( doc->NewElement( "transBeforeBalance" ) );
     transBeforeElem->InsertFirstChild(doc->NewText(buffer));
 
+    memset(buffer,0,sizeof(buffer));
     sprintf(buffer,"%d",vehinfo->afterBlance);
     XMLNode* balanceElem = rootElem->InsertEndChild( doc->NewElement( "balance" ) );
     balanceElem->InsertFirstChild(doc->NewText(buffer));
 
-    sprintf(buffer,"%d",vehinfo->TransType);
+    memset(buffer,0,sizeof(buffer));
+    sprintf(buffer,"%02x",vehinfo->TransType);
     XMLNode* transTypeElem = rootElem->InsertEndChild( doc->NewElement( "transType" ) );
     transTypeElem->InsertFirstChild(doc->NewText(buffer));
 
+    memset(buffer,0,sizeof(buffer));
     sprintf(buffer,"%d",vehinfo->CardType);
     XMLNode* cardTypeElem = rootElem->InsertEndChild( doc->NewElement( "cardType" ) );
     cardTypeElem->InsertFirstChild(doc->NewText(buffer));
@@ -783,7 +801,9 @@ int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo)
 
     XMLPrinter printer;
     doc->Print( &printer );
-    m_tcpSrvHandle->SendMsg(printer.CStr(),printer.CStrSize());
+    printf("m_tcpSrvHandle=%x, send msg:%s\n", m_tcpSrvHandle, printer.CStr());
+    if(m_tcpSrvHandle)
+    	m_tcpSrvHandle->SendMsg(printer.CStr(),printer.CStrSize());
 
     return 0;
 }

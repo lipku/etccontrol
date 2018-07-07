@@ -44,12 +44,15 @@ void CAsioTcp::AcceptHandler( const boost::system::error_code& ec, CTcpSession* 
 void CAsioTcp::SendMsg( socket_handle socket, const char* pData, unsigned int nDataSize )
 {
  CTcpSession* pTcpSession = reinterpret_cast<CTcpSession*>(socket);
+ printf("pTcpSession=%x\n",pTcpSession);
  (pTcpSession)->SendMsg(pData, nDataSize);
 }
 
 void CAsioTcp::Start()
 {
- m_ioservice.run();
+ //m_ioservice.run();
+  boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioservice));
+  backgroundThread.swap(t);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,12 +76,14 @@ void CTcpSession::HandleRead( const boost::system::error_code& ec, size_t bytes_
  }
  else
  {
+    printf("close connection============================\n");
     delete this;
  }
 }
 
 void CTcpSession::StartRead()
 {
+ 
  m_socket.async_read_some(boost::asio::buffer(m_dataRecvBuff, max_length),
   boost::bind(&CTcpSession::HandleRead, this,
   boost::asio::placeholders::error,
@@ -87,6 +92,7 @@ void CTcpSession::StartRead()
 
 void CTcpSession::SendMsg( const char* pData, unsigned int nDataSize )
 {
+ printf("CTcpSession::SendMsg\n");
  boost::asio::async_write(m_socket,
   boost::asio::buffer(pData, nDataSize),
   boost::bind(&CTcpSession::HandleWrite, this,

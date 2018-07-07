@@ -1,6 +1,7 @@
 #pragma once
 #include <boost/asio.hpp>
 #include <boost/make_shared.hpp>
+#include <boost/thread.hpp>
 #include <boost/enable_shared_from_this.hpp>
 
 typedef boost::asio::ip::tcp::socket socket_t;
@@ -48,6 +49,7 @@ private:
 
 private:
  boost::asio::io_service m_ioservice;
+ boost::thread backgroundThread;
  acceptor m_pAcceptor;
  INetCallback* m_pINetCallback;
 };

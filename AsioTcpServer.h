@@ -10,6 +10,8 @@ class AsioTcpServer : public INetCallback
 public:
   AsioTcpServer(int port, EtcRsu* pEtcRsu);
 
+  int StartRun();
+
   int SendMsg(const char* pData, unsigned int nDataSize );
 
   virtual void OnNewConnection( socket_handle newSocket );

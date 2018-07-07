@@ -67,11 +67,11 @@ bool BufferedAsyncSerial::GetOneMsg(std::vector<unsigned char>& result)
     lock_guard<mutex> l(readQueueMutex);
     vector<unsigned char>::iterator it1;
     
-    for(it1=readQueue.begin();it1!=readQueue.end();it1++)
+    /*for(it1=readQueue.begin();it1!=readQueue.end();it1++)
     {
          printf("%02X ",*it1);
     }
-    printf("\n");
+    printf("\n");*/
 
     vector<unsigned char> delim;
     delim.push_back(0xff);

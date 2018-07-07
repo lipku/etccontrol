@@ -22,6 +22,7 @@ struct VehInfo
     unsigned char TransType;          /* 交易类型， 00-传统交易， Ox10】复合父易 只用于国标 CPU 卡，一卡迪为 00 */
     unsigned int  beforeBlance;   /* 卡余额，高位在前，低位在后 */
     std::string   sCardID;          /* 一卡迪和 CPU 卡的物理卡号 C CPU 卡可以没有，暂填 0 */
+    std::string   sCardSerialNo; 
     std::string   sCardNetNo;
     //B5
     std::string   sPSAMNo;        /* PSAM 卡终端机编号 */
@@ -50,6 +51,7 @@ public:
 
     int AddVehCost(std::string VehNumber, int money);
     int SetTcpSrvHandle(AsioTcpServer *tcpHandle);
+    
 private:
     //LoggerEvent *mLog;  ///* 日志文件
     BufferedAsyncSerial mRsuComm;
@@ -59,6 +61,7 @@ private:
     unsigned char mWaitTime; /* 最小重读时间 */
 
     VehInfo m_currVehInfo;
+    std::string m_RSUTerminalld;
 
     bool mStoped;
     unsigned char mCurrRSCTL;
