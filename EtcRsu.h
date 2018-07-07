@@ -9,6 +9,31 @@
 
 using namespace std;
 
+struct VehInfo
+{
+    //B2
+    std::string   sOBUID;
+    std::string   sIssuerldentifier; /* 发行商代码 */
+    //B3
+    std::string   sPlateNumber; /* 车牌号码 */
+    //B4
+    unsigned char CardType;           /* 00国标卡   01一卡通 */
+    unsigned char PhysicalCardType;   /* 物理卡类型，0x00：国标CPU卡   0x01：MIFARE 1(S50) 卡   0x02: MIFARE PRO(或兼容)卡   0x03:Ultra Light  0x05: MIFARE 丁 (S70)卡  */
+    unsigned char TransType;          /* 交易类型， 00-传统交易， Ox10】复合父易 只用于国标 CPU 卡，一卡迪为 00 */
+    unsigned int  beforeBlance;   /* 卡余额，高位在前，低位在后 */
+    std::string   sCardID;          /* 一卡迪和 CPU 卡的物理卡号 C CPU 卡可以没有，暂填 0 */
+    std::string   sCardNetNo;
+    //B5
+    std::string   sPSAMNo;        /* PSAM 卡终端机编号 */
+    std::string   sTransTime;     /* 交易时间，格式 YYYYMMDDHHMMSS */
+    unsigned int  iTAC;
+    unsigned int  iICCPayserial;   //CPU卡交易序号
+    unsigned int  iPSAMTransSerial;   /* PSAM 卡交 易序号，记 11段卡填充 0; */
+    unsigned int  afterBlance;   //交易后余额 高位在前，低位在后
+
+};
+
+class AsioTcpServer;
 class EtcRsu
 {
 public:
@@ -22,6 +47,9 @@ public:
 
     void WriteSerial(std::vector<unsigned char>& buff);
     void run(); //process msg thread
+
+    int AddVehCost(std::string VehNumber, int money);
+    int SetTcpSrvHandle(AsioTcpServer *tcpHandle);
 private:
     //LoggerEvent *mLog;  ///* 日志文件
     BufferedAsyncSerial mRsuComm;
@@ -30,13 +58,22 @@ private:
     unsigned char mTxPower;  /* 功率级别 */
     unsigned char mWaitTime; /* 最小重读时间 */
 
+    VehInfo m_currVehInfo;
+
     bool mStoped;
     unsigned char mCurrRSCTL;
+
+    std::string m_currVehNumer;
+    int m_currPayMoney;
+
+    AsioTcpServer *m_tcpSrvHandle;
 
 private:
     bool OpenDrv();
     int CloseDrv();
     int Read();
+
+    int ResonseTcpSrv(VehInfo* vehinfo);
     //QByteArray GetOneMsg(bool* ok);
     //QByteArray beforDealRec(bool* ok,QByteArray msg);
     std::vector<unsigned char> beforDealSnd(std::vector<unsigned char>& msg);

@@ -1,6 +1,10 @@
 #include "EtcRsu.h"
 
 #include <time.h> 
+#include "AsioTcpServer.h"
+
+#include "tinyxml2.h"
+using namespace tinyxml2;
 
 /*
 * 字符串转成bcd码，这个是正好偶数个数据的时候，如果是奇数个数据则分左靠还是右靠压缩BCD码
@@ -46,6 +50,33 @@ static bool Str2Bcdch(char *des, char *src)
     return true;
 }
 
+static string Bin2Hex(const unsigned char* strBin, int binLen, bool bIsUpper = false)
+{
+    string strHex;
+    strHex.resize(binLen * 2);
+    for (size_t i = 0; i < binLen; i++)
+    {
+        uint8_t cTemp = strBin[i];
+        for (size_t j = 0; j < 2; j++)
+        {
+            uint8_t cCur = (cTemp & 0x0f);
+            if (cCur < 10)
+            {
+                cCur += '0';
+            }
+            else
+            {
+                cCur += ((bIsUpper ? 'A' : 'a') - 10);
+            }
+            strHex[2 * i + 1 - j] = cCur;
+            cTemp >>= 4;
+        }
+    }
+ 
+    return strHex;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 EtcRsu::EtcRsu()
@@ -53,6 +84,11 @@ EtcRsu::EtcRsu()
     mStoped = false;
     mIsRead = false;
     mCurrRSCTL = 0x08;
+
+    m_currVehNumer = "";
+    m_currPayMoney = 0;
+
+    m_tcpSrvHandle = NULL;
 }
 
 static void *readcomProc(void* lpParam)
@@ -129,6 +165,18 @@ int EtcRsu::CloseDrv()
 }
 
 
+int EtcRsu::AddVehCost(std::string VehNumber, int money)
+{
+    m_currVehNumer = VehNumber;
+    m_currPayMoney = money;
+    return 0;
+}
+
+int EtcRsu::SetTcpSrvHandle(AsioTcpServer *tcpHandle)
+{
+    m_tcpSrvHandle = tcpHandle;
+    return 0;
+}
 //-------------发送消息格式----------------------------------------------------------------
 
 unsigned char EtcRsu::halfChange(unsigned char v)
@@ -354,7 +402,8 @@ void EtcRsu::receiveB0(std::vector<unsigned char>& buff)
         sendC0(msgB0->RSCTL);
         openAntenna(true);
     }  
-    else {       
+    else {  
+	   openAntenna(true);     
         //sendC1(msgB0->RSCTL);
     }
     //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("天线 PSAM1:%1 PSAM2:%2").arg(mTool->bin2hex((char*)(msgB0->RSUTerminalld1),sizeof(msgB0->RSUTerminalld1))).arg(mTool->bin2hex((char*)(msgB0->RSUTerminalld2),sizeof(msgB0->RSUTerminalld2))));
@@ -362,6 +411,7 @@ void EtcRsu::receiveB0(std::vector<unsigned char>& buff)
 
 void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 {
+    printf("receiveB2 fuction in\n");
     MSG_B2 * msgB2;
     msgB2 = (MSG_B2*)buff.data();
     //QDateTime qTmpTime = QDateTime::currentDateTime();
@@ -372,17 +422,43 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
     }
     else if (msgB2->ErrCode == 0)
     {
+        if (m_currVehNumer.empty()) //当前没收到扣费请求
+        {
+            printf("not received pay request\n");
+            return;
+        }
+
         unsigned char tmp=0;
         unsigned char obuStatus = msgB2->OBUStatus[0];
         tmp = obuStatus &(unsigned char) 0x80;
+        /// * 生成卡一级分散因子*/
+        unsigned char* pVehFactor = mCardFactor.data();
+        memcpy(pVehFactor,msgB2->Issuerldentifier,4);
+        memcpy(pVehFactor+4,msgB2->Issuerldentifier,4);
+    	/*if(mCardFactor.size()!=0)
+    	{
+    	   mCardFactor.clear();
+    	}
+    	for(int i = 0;i<4;i++)
+    	{
+               mCardFactor.push_back(msgB2->Issuerldentifier[i]);
+    	}
+    	for(int i = 0;i<4;i++)
+    	{
+               mCardFactor.push_back(msgB2->Issuerldentifier[i]);
+    	}*/
+
         if (tmp >0)       ///* 判断OBU是否有卡 */
         {
+	        printf("send C2 trance\n");
             sendC2(msgB2->RSCTL,1,msgB2->OBUID);
             return;
         }
 
+        m_currVehInfo.sOBUID = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
+        m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->Issuerldentifier, sizeof(msgB2->Issuerldentifier));
         ///* 判断OBU过期 */ //todo
-
+	    printf("send C1 trance\n");
         sendC1(msgB2->RSCTL,msgB2->OBUID,mCardFactor);  //todo
         
         //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("VST---标签号:%1;发行号:%2;起始时间:%3;终止时间:%4;错误码:%5;").arg(vehB2OBUID).arg(qVeh->mOBUSerialNo).arg(mTool->getDateTimeByBCD(qVeh->mB2.Dateoflssue,4).toString("yyyy-MM-dd")).arg(mTool->getDateTimeByBCD(qVeh->mB2.DateofExpire,4).toString("yyyy-MM-dd")).arg(msgB2->ErrCode));
@@ -402,7 +478,9 @@ void EtcRsu::receiveB3(std::vector<unsigned char>& buff)
     //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("OBU----标签号:%1;车牌号:%2; 车型:%3").arg(vehB3OBUID).arg(qVeh->mOBUPlate).arg(qVeh->mOBUCarType));
     
     //todo 保存车辆信息
+    m_currVehInfo.sPlateNumber = Bin2Hex(msgB3->PlateNumber, sizeof(msgB3->PlateNumber));
 
+    //if(!m_currVehInfo.sPlateNumber.compare(m_currVehNumer)) //todo
     sendC1(msgB3->RSCTL,msgB3->OBUID,mCardFactor);//////////////
 
     return;
@@ -418,18 +496,34 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
     
     time_t timep; 
     time(&timep);
-    int tradeMoney=6;  //todo
+    //int tradeMoney=100;  //todo
 
-    /// 判断OBU状态代码
+    
+    ///* 检查状态名单  - 黑名单
+
+    ///* 获取余额
+        unsigned char cardblance[4];
+        cardblance[0] = msgB4->CardRestMoney[3];
+        cardblance[1] = msgB4->CardRestMoney[2];
+        cardblance[2] = msgB4->CardRestMoney[1];
+        cardblance[3] = msgB4->CardRestMoney[0];
+        uint* itmp  = (uint*)&cardblance;
+        m_currVehInfo.beforeBlance =  *itmp;
+
+        m_currVehInfo.CardType = msgB4->CardType;
+        m_currVehInfo.PhysicalCardType = msgB4->PhysicalCardType;
+        m_currVehInfo.TransType = msgB4->TransType;
+        m_currVehInfo.CardType = msgB4->CardType;
+        m_currVehInfo.sCardID = Bin2Hex(msgB4->CardID,sizeof(msgB4->CardID));
+        m_currVehInfo.sCardNetNo = Bin2Hex((unsigned char*)msgB4->f0015.CardNetNo,sizeof(msgB4->f0015.CardNetNo));
+
+     /// 判断OBU状态代码
     if(msgB4->ErrorCode != 0) //交易失败
     {
         goto B4_ERROR;
     }
 
-    
-    ///* 检查状态名单  - 黑名单
-
-    sendC6(msgB4->RSCTL,msgB4->OBUID,tradeMoney,timep,msgB4->f0019,mCardFactor);
+    sendC6(msgB4->RSCTL,msgB4->OBUID,m_currPayMoney,timep,msgB4->f0019,mCardFactor);
 
     return;
 
@@ -447,6 +541,40 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
       
     if(msgB5->ErrorCode == 0)
     {
+        m_currVehInfo.sPSAMNo = Bin2Hex((unsigned char*) (msgB5->PSAMNo),sizeof(msgB5->PSAMNo));  
+        m_currVehInfo.sTransTime = Bin2Hex((unsigned char*) (msgB5->TransTime),sizeof(msgB5->TransTime));  
+
+        ///* IC卡交易总数
+        unsigned char* tmpValue = (unsigned char *)&(m_currVehInfo.iICCPayserial);
+        *(tmpValue+3) = 0;
+        *(tmpValue+2) = 0;
+        *(tmpValue+1) = msgB5->ICCPayserial[0];
+        *(tmpValue)   = msgB5->ICCPayserial[1];
+
+        ///* 转换TAC码
+        tmpValue = (unsigned char *)&(m_currVehInfo.iTAC);
+        *(tmpValue+3) = msgB5->TAC[0];
+        *(tmpValue+2) = msgB5->TAC[1];
+        *(tmpValue+1) = msgB5->TAC[2];
+        *(tmpValue)   = msgB5->TAC[3]; 
+
+        ///* PSAM 卡交易总数
+        tmpValue = (unsigned char *)&(m_currVehInfo.iPSAMTransSerial);
+        *(tmpValue+3) = msgB5->PSAMTransSerial[0];
+        *(tmpValue+2) = msgB5->PSAMTransSerial[1];
+        *(tmpValue+1) = msgB5->PSAMTransSerial[2];
+        *(tmpValue)   = msgB5->PSAMTransSerial[3];
+        ///* 获取交易后的余额
+        unsigned char cardblance[4];
+        cardblance[0] = msgB5->CardBalance[3];
+        cardblance[1] = msgB5->CardBalance[2];
+        cardblance[2] = msgB5->CardBalance[1];
+        cardblance[3] = msgB5->CardBalance[0];
+        uint* itmp  = (uint*)&cardblance;
+        m_currVehInfo.afterBlance = *itmp;
+
+        ResonseTcpSrv(&m_currVehInfo);
+
         sendC1(msgB5->RSCTL,msgB5->OBUID,mCardFactor);
         /*qVeh->mWorkName = "交易成功";
         qVeh->mWorkMode = WMNormal;
@@ -499,7 +627,6 @@ void EtcRsu::run()
     //初始化发C0 由主业务逻辑控制开闭天线
     while(!mStoped)
     {
-       // usleep(1000*1000);
         std::vector<unsigned char> oneMsg;
         ok = mRsuComm.GetOneMsg(oneMsg);
 //            mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("获取到oneMsg-RSU数据"));
@@ -511,7 +638,6 @@ void EtcRsu::run()
 	printf("\n");
         if (ok)
         {
-	    printf("msg-recv ok");
             this->sendMsg2Logic(oneMsg);
         }
         else{
@@ -547,10 +673,11 @@ void EtcRsu::sendMsg2Logic(std::vector<unsigned char>& msg)
 {
     unsigned char msgType =  msg.at(1);
     this->mCurrRSCTL = msg.at(0);
-  //  printf("msg---%X",msg.at(1));
+    printf("msgtype---%X\n",msg.at(1));
     //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,mTool->bin2hex((char*)&msgType,1)+ " -> " + mTool->Array2HexStr(msg));
     if(!mIsRead)
     {
+        printf("mIsRead=== false\n");
         if(msgType == 0xb0)
         {
             receiveB0(msg);
@@ -597,3 +724,69 @@ void EtcRsu::openAntenna(bool open)
 //        this->send4C(this->mCurrRSCTL,0x00);
 //    }
 }
+
+int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo)
+{
+    char buffer [30];
+
+    XMLDocument* doc = new XMLDocument();
+    XMLNode* rootElem = doc->InsertEndChild( doc->NewElement( "RSUTransactionResult" ) );
+
+    XMLNode* timeElem = rootElem->InsertEndChild( doc->NewElement( "time" ) );
+    timeElem->InsertFirstChild(doc->NewText(vehinfo->sTransTime.c_str()));
+
+    XMLNode* issueridElem = rootElem->InsertEndChild( doc->NewElement( "cardIssuerID" ) );
+    issueridElem->InsertFirstChild(doc->NewText(vehinfo->sIssuerldentifier.c_str()));
+
+    XMLNode* chipnoElem = rootElem->InsertEndChild( doc->NewElement( "cardChipNo" ) );
+    chipnoElem->InsertFirstChild(doc->NewText(vehinfo->sCardID.c_str()));
+
+    XMLNode* termElem = rootElem->InsertEndChild( doc->NewElement( "terminalId" ) );
+    termElem->InsertFirstChild(doc->NewText(vehinfo->sPSAMNo.c_str()));
+
+    sprintf(buffer,"%d",vehinfo->iICCPayserial);
+    XMLNode* cardSerialElem = rootElem->InsertEndChild( doc->NewElement( "cardSerialNo" ) );
+    cardSerialElem->InsertFirstChild(doc->NewText(buffer));
+
+    sprintf(buffer,"%d",vehinfo->iPSAMTransSerial);
+    XMLNode* psamSerialElem = rootElem->InsertEndChild( doc->NewElement( "psamSerialNo" ) );
+    psamSerialElem->InsertFirstChild(doc->NewText(buffer));
+
+    XMLNode* cardRndElem = rootElem->InsertEndChild( doc->NewElement( "cardRnd" ) );
+    cardRndElem->InsertFirstChild(doc->NewText(""));  //todo
+
+    sprintf(buffer,"%d",vehinfo->iTAC);
+    XMLNode* tacElem = rootElem->InsertEndChild( doc->NewElement( "tac" ) );
+    tacElem->InsertFirstChild(doc->NewText(buffer));
+
+    XMLNode* cardNetElem = rootElem->InsertEndChild( doc->NewElement( "cardNetNo" ) );
+    cardNetElem->InsertFirstChild(doc->NewText(vehinfo->sCardNetNo.c_str()));
+
+    sprintf(buffer,"%d",vehinfo->beforeBlance);
+    XMLNode* transBeforeElem = rootElem->InsertEndChild( doc->NewElement( "transBeforeBalance" ) );
+    transBeforeElem->InsertFirstChild(doc->NewText(buffer));
+
+    sprintf(buffer,"%d",vehinfo->afterBlance);
+    XMLNode* balanceElem = rootElem->InsertEndChild( doc->NewElement( "balance" ) );
+    balanceElem->InsertFirstChild(doc->NewText(buffer));
+
+    sprintf(buffer,"%d",vehinfo->TransType);
+    XMLNode* transTypeElem = rootElem->InsertEndChild( doc->NewElement( "transType" ) );
+    transTypeElem->InsertFirstChild(doc->NewText(buffer));
+
+    sprintf(buffer,"%d",vehinfo->CardType);
+    XMLNode* cardTypeElem = rootElem->InsertEndChild( doc->NewElement( "cardType" ) );
+    cardTypeElem->InsertFirstChild(doc->NewText(buffer));
+
+    XMLNode* originalTransactionDateElem = rootElem->InsertEndChild( doc->NewElement( "originalTransactionDate" ) );
+    originalTransactionDateElem->InsertFirstChild(doc->NewText(""));
+
+    XMLPrinter printer;
+    doc->Print( &printer );
+    m_tcpSrvHandle->SendMsg(printer.CStr(),printer.CStrSize());
+
+    return 0;
+}
+
+
+

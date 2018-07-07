@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 project(ETC)
 
 ## Target
-set(ETC_SRCS main.cpp AsyncSerial.cpp BufferedAsyncSerial.cpp EtcRsu.cpp)
+set(ETC_SRCS main.cpp AsyncSerial.cpp BufferedAsyncSerial.cpp EtcRsu.cpp AsioTcp.cpp AsioTcpServer.cpp tinyxml2.cpp)
 add_executable(etccontrol ${ETC_SRCS})
 
 ## Link libraries
