@@ -52,7 +52,7 @@ static bool Str2Bcdch(char *des, char *src)
 
 static string Bin2Hex(const unsigned char* strBin, int binLen, bool bIsUpper = false)
 {
-    string strHex;
+    std::string strHex;
     strHex.resize(binLen * 2);
     for (size_t i = 0; i < binLen; i++)
     {
@@ -87,6 +87,8 @@ EtcRsu::EtcRsu()
 
     m_currVehNumer = "";
     m_currPayMoney = 0;
+
+    pthread_mutex_init(&m_vehMutex,NULL);
 
     m_tcpSrvHandle = NULL;
 }
@@ -167,8 +169,10 @@ int EtcRsu::CloseDrv()
 
 int EtcRsu::AddVehCost(std::string VehNumber, int money)
 {
-    m_currVehNumer = VehNumber;// VehNumber;
+    pthread_mutex_lock(&m_vehMutex);
+    m_currVehNumer.assign(VehNumber);// VehNumber;
     m_currPayMoney = money;
+    pthread_mutex_unlock(&m_vehMutex);
     return 0;
 }
 
@@ -428,11 +432,14 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
     }
     else if (msgB2->ErrCode == 0)
     {
+        pthread_mutex_lock(&m_vehMutex);
         if (m_currVehNumer.empty()) //当前没收到扣费请求
         {
             printf("not received pay request\n");
+            pthread_mutex_unlock(&m_vehMutex);
             return;
         }
+        pthread_mutex_unlock(&m_vehMutex);
 
         unsigned char tmp=0;
         unsigned char obuStatus = msgB2->OBUStatus[0];
@@ -461,7 +468,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
             return;
         }
 
-	 printf("send C1 trance\n");
+	    printf("send C1 trance\n");
         m_currVehInfo.sOBUID = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
         m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->Issuerldentifier, sizeof(msgB2->Issuerldentifier));
         ///* 判断OBU过期 */ //todo
@@ -483,14 +490,21 @@ void EtcRsu::receiveB3(std::vector<unsigned char>& buff)
     msgB3 = (MSG_B3*)buff.data();
     ///* 日志
     //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("OBU----标签号:%1;车牌号:%2; 车型:%3").arg(vehB3OBUID).arg(qVeh->mOBUPlate).arg(qVeh->mOBUCarType));
-    
+    if(msgB3->ErrorCode != 0) //交易失败
+    {
+        sendC2(msgB3->RSCTL,1,msgB3->OBUID);
+        return;
+    }
     //todo 保存车辆信息
     printf("car number=%s\n", msgB3->PlateNumber);
     m_currVehInfo.sPlateNumber = std::string((const char*)msgB3->PlateNumber);//Bin2Hex(msgB3->PlateNumber, sizeof(msgB3->PlateNumber));
 
     //if(!m_currVehInfo.sPlateNumber.compare(m_currVehNumer)) //todo
     sendC1(msgB3->RSCTL,msgB3->OBUID,mCardFactor);//////////////
+
+    pthread_mutex_lock(&m_vehMutex);
     m_currVehNumer = "";
+    pthread_mutex_unlock(&m_vehMutex);
 
     return;
 }
@@ -502,6 +516,11 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
     //QString sOBUID = mTool->obuID2String(msgB4->OBUID);
     //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("IC---错误代码:%1;").arg(msgB4->ErrorCode));
     //mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("IC卡信息加入队列,OBUID:%1;").arg(sOBUID));  ///*日志
+    if(msgB4->ErrorCode != 0) //交易失败
+    {
+        sendC2(msgB4->RSCTL,1,msgB4->OBUID);
+        return;
+    }
     
     time_t timep; 
     time(&timep);
@@ -526,18 +545,12 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
         m_currVehInfo.sCardNetNo = Bin2Hex((unsigned char*)msgB4->f0015.CardNetNo,sizeof(msgB4->f0015.CardNetNo));
 
      /// 判断OBU状态代码
-    if(msgB4->ErrorCode != 0) //交易失败
-    {
-        goto B4_ERROR;
-    }
+    
 
     sendC6(msgB4->RSCTL,msgB4->OBUID,m_currPayMoney,timep,msgB4->f0019,mCardFactor);
 
     return;
-
-B4_ERROR:
-    sendC2(msgB4->RSCTL,1,msgB4->OBUID);
-    return;
+    
 }
 
 void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
@@ -583,7 +596,7 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
         m_currVehInfo.afterBlance = *itmp;
 
         ResonseTcpSrv(&m_currVehInfo);
-        memset(&m_currVehInfo,0,sizeof(VehInfo));
+        //memset(&m_currVehInfo,0,sizeof(VehInfo));
 
         sendC1(msgB5->RSCTL,msgB5->OBUID,mCardFactor);
         /*qVeh->mWorkName = "交易成功";
@@ -645,10 +658,10 @@ void EtcRsu::run()
         if (ok)
         {
             for(int i = 0;i<oneMsg.size();i++)
-   	    {
-  	       printf("%02X ",oneMsg[i]);
-   	    }
-	    printf("\n");
+   	        {
+  	             printf("%02X ",oneMsg[i]);
+   	        }
+	        printf("\n");
             this->sendMsg2Logic(oneMsg);
         }
         else{
@@ -804,6 +817,8 @@ int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo)
     printf("m_tcpSrvHandle=%x, send msg:%s\n", m_tcpSrvHandle, printer.CStr());
     if(m_tcpSrvHandle)
     	m_tcpSrvHandle->SendMsg(printer.CStr(),printer.CStrSize());
+
+    delete doc;
 
     return 0;
 }

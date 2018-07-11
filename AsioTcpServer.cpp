@@ -57,13 +57,13 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
           moneyElem->QueryIntText( &money );
 
           printf( "vehNo=%s, money=%d\n", vehNo, money);
-	  if(m_pEtcRsu == NULL)
+	        if(m_pEtcRsu == NULL)
           {
              printf( "m_pEtcRsu===null\n");
-	  }
-	  else
+	        }
+	        else
           {
-	     m_pEtcRsu->AddVehCost(string(vehNo),money);
+	           m_pEtcRsu->AddVehCost(string(vehNo),money);
           }		
 	  
           

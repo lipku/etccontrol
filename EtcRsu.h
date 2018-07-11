@@ -68,6 +68,7 @@ private:
 
     std::string m_currVehNumer;
     int m_currPayMoney;
+    pthread_mutex_t m_vehMutex;
 
     AsioTcpServer *m_tcpSrvHandle;
 
