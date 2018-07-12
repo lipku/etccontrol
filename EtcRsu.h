@@ -79,7 +79,7 @@ private:
 
     int ResonseTcpSrv(VehInfo* vehinfo);
     //QByteArray GetOneMsg(bool* ok);
-    //QByteArray beforDealRec(bool* ok,QByteArray msg);
+    bool beforDealRec(std::vector<unsigned char>& result);
     std::vector<unsigned char> beforDealSnd(std::vector<unsigned char>& msg);
     /* 高低半字节互换 */
     unsigned char halfChange(unsigned char v);

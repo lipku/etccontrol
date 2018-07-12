@@ -88,36 +88,11 @@ bool BufferedAsyncSerial::GetOneMsg(std::vector<unsigned char>& result)
     if(iEnd==readQueue.end()) return false;
     vector<unsigned char>::iterator it;
     
-    //(*ok) = true;
+    ok = true;
     result.assign(iBegin+2,iEnd);
     readQueue.erase(readQueue.begin(),iEnd+1);
 
-    vector<unsigned char> origin,replaced;  //protocol 4.3 特殊字节转义处理
-    origin.push_back(0xfe);
-    origin.push_back(0x01);
-    replaced.push_back(0xff);
-    replaceBytesInVector(result,origin,replaced);
-
-    origin.clear();
-    replaced.clear();
-    origin.push_back(0xfe);
-    origin.push_back(0x00);
-    replaced.push_back(0xfe);
-    replaceBytesInVector(result,origin,replaced);
-
-    unsigned char bcc = result[0];  //异或校验
-    for (int i=1;i<result.size()-1;i++){
-       bcc = bcc ^ result[i];
-    }
-    unsigned char bcc1 = result[result.size()-1];
-    if (bcc==bcc1)
-      ok = true;
-    else
-    {
-     printf("bcc!=bcc1\n");
-    }
-
-    printf("333333333\n");
+    printf("GetOneMsg success\n");
     
     return ok;
 }

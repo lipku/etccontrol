@@ -643,6 +643,67 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
     
 }
 //=========================================================================================
+static std::vector<unsigned char>::iterator replaceBytesInVector(
+        std::vector<unsigned char>& v, const std::vector<unsigned char>& s, const std::vector<unsigned char>& r)
+{
+    if(s.size()==0) return v.end();
+
+    vector<unsigned char>::iterator it=v.begin();
+    for(;;)
+    {
+        vector<unsigned char>::iterator result=find(it,v.end(),s[0]);
+        if(result==v.end()) return v.end();//If not found return
+
+        for(size_t i=0;i<s.size();i++)
+        {
+            vector<unsigned char>::iterator temp=result+i;
+            if(temp==v.end()) return v.end();
+            if(s[i]!=*temp) goto mismatch;
+        }
+        //Found
+        if(s.size()>r.size())
+        {
+            *result=r[0];
+            vector<unsigned char>::iterator temp=result+1;
+            v.erase(temp);
+        }
+
+        mismatch:
+        it=result+1;
+    }
+}
+
+
+bool EtcRsu::beforDealRec(std::vector<unsigned char>& result)
+{
+    bool ok = false;
+    vector<unsigned char> origin,replaced;  //protocol 4.3 特殊字节转义处理
+    origin.push_back(0xfe);
+    origin.push_back(0x01);
+    replaced.push_back(0xff);
+    replaceBytesInVector(result,origin,replaced);
+
+    origin.clear();
+    replaced.clear();
+    origin.push_back(0xfe);
+    origin.push_back(0x00);
+    replaced.push_back(0xfe);
+    replaceBytesInVector(result,origin,replaced);
+
+    unsigned char bcc = result[0];  //异或校验
+    for (int i=1;i<result.size()-1;i++){
+       bcc = bcc ^ result[i];
+    }
+    unsigned char bcc1 = result[result.size()-1];
+    if (bcc==bcc1)
+      ok = true;
+    else
+    {
+     printf("bcc!=bcc1\n");
+    }
+
+    return ok;
+}
 
 void EtcRsu::run()
 {
@@ -657,12 +718,16 @@ void EtcRsu::run()
    	 
         if (ok)
         {
-            for(int i = 0;i<oneMsg.size();i++)
-   	        {
-  	             printf("%02X ",oneMsg[i]);
-   	        }
-	        printf("\n");
-            this->sendMsg2Logic(oneMsg);
+            ok = this->beforDealRec(oneMsg);
+            if (ok)
+            {
+                for(int i = 0;i<oneMsg.size();i++)
+   	            {
+  	                 printf("%02X ",oneMsg[i]);
+   	            }
+	           printf("\n");
+                this->sendMsg2Logic(oneMsg);
+            }
         }
         else{
             //printf("check err\n");
