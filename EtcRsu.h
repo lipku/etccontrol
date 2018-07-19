@@ -8,6 +8,7 @@
 #include "RsuMsg.h"
 
 using namespace std;
+char*   log_Time(void);
 
 struct VehInfo
 {

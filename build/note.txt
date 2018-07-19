@@ -1,0 +1,3956 @@
+19
+
+tcpHandle=2ec62b70
+GetOneMsg success
+msgtype---B0
+mIsRead=== false
+GetOneMsg success
+msgtype---B2
+now time is 1531963208146
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963208658
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963211987
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963212639
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963215450
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963215779
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963216229
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963216690
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963217138
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963217570
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963217829
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963218651
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963219260
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963219979
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963220338
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963221830
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963222568
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963224409
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963224789
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963225143
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963225812
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963226578
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963226957
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963227180
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963227549
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963227899
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963228238
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963228959
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963229451
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963230047
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963230449
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963231271
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963231987
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963232269
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963233220
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963234128
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963234448
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963234849
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963235538
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963235888
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963236998
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963237620
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963238598
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963238948
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963239428
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963240328
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963240969
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963241909
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963242437
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963242889
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963243488
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963244636
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963244979
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963248028
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963248378
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963251418
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963251768
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963252267
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963252797
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963253257
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963253598
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963255338
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963255707
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963256238
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963257016
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963257687
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963258158
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963259107
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963259657
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963260657
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963260918
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963261496
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963261887
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963262297
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963262906
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963263787
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963264687
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963265796
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963266797
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963267566
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963267905
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963271026
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963271498
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963272356
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963272835
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963273865
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963274285
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963274595
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963274847
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963275695
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963276415
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963276856
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963277305
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963280467
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963280717
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963281236
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963282197
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963283053
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963283406
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963284166
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963284726
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963285725
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963286046
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963286795
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963287394
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963287715
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963288104
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963288396
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963289284
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963289924
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963290956
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963291265
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963291596
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963291945
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963292475
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963292856
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963293185
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963293486
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963294106
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963294817
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963295166
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963295804
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963296146
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963296966
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963298185
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963299615
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963299953
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963300372
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963300605
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963301296
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963301555
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963301904
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963302175
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963302494
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963302913
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963303134
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963303545
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963303825
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963306934
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963307214
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963308260
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+OnNewConnection
+GetOneMsg success
+msgtype---B2
+now time is 1531963310653
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963310904
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963311265
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+OnNewConnection
+OnRecvData:<?xml version="1.0" encoding="utf-8"?><RequestRSUTransaction><vehplateNo>浜珹1234</vehplateNo><money>100</money></RequestRSUTransaction> size=136
+vehNo=浜珹1234, money=100
+vnumber = 浜珹1234
+GetOneMsg success
+msgtype---B2
+now time is 1531963312046
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+sCurTime=20180719092152
+
+GetOneMsg success
+msgtype---B5
+now time is 1531963312637
+m_tcpSrvHandle=2ec62b70, send msg:<RSUTransactionResult>
+    <time>20180719092152</time>
+    <cardIssuerID>b1b1bea911010001</cardIssuerID>
+    <cardChipNo>0716230060000696</cardChipNo>
+    <terminalId>021310000000</terminalId>
+    <cardSerialNo>688</cardSerialNo>
+    <psamSerialNo>1126</psamSerialNo>
+    <cardRnd></cardRnd>
+    <tac>e3793aa9</tac>
+    <cardNetNo>1101</cardNetNo>
+    <transBeforeBalance>-46489</transBeforeBalance>
+    <balance>-46589</balance>
+    <transType>09</transType>
+    <cardType>23</cardType>
+    <originalTransactionDate></originalTransactionDate>
+</RSUTransactionResult>
+
+pTcpSession=1db12d0
+CTcpSession::SendMsg
+
+sendC1 done 
+B5 Done
+now time is 1531963312637
+GetOneMsg success
+msgtype---B2
+now time is 1531963312994
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963313214
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963313511
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963313815
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963314095
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963314433
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963314693
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963315394
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963315663
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+OnRecvData:<?xml version="1.0" encoding="utf-8"?><RequestRSUTransaction><vehplateNo>浜珹1234</vehplateNo><money>100</money></RequestRSUTransaction> size=136
+vehNo=浜珹1234, money=100
+vnumber = 浜珹1234
+GetOneMsg success
+msgtype---B2
+now time is 1531963316113
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+sCurTime=20180719092156
+
+GetOneMsg success
+msgtype---B5
+now time is 1531963316361
+m_tcpSrvHandle=2ec62b70, send msg:<RSUTransactionResult>
+    <time>20180719092156</time>
+    <cardIssuerID>b1b1bea911010001</cardIssuerID>
+    <cardChipNo>0716230060000696</cardChipNo>
+    <terminalId>021310000000</terminalId>
+    <cardSerialNo>689</cardSerialNo>
+    <psamSerialNo>1127</psamSerialNo>
+    <cardRnd></cardRnd>
+    <tac>166fefd2</tac>
+    <cardNetNo>1101</cardNetNo>
+    <transBeforeBalance>-46589</transBeforeBalance>
+    <balance>-46689</balance>
+    <transType>09</transType>
+    <cardType>23</cardType>
+    <originalTransactionDate></originalTransactionDate>
+</RSUTransactionResult>
+
+pTcpSession=1db12d0
+CTcpSession::SendMsg
+
+sendC1 done 
+B5 Done
+now time is 1531963316362
+GetOneMsg success
+msgtype---B2
+now time is 1531963316545
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963316823
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963317204
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+OnRecvData:<?xml version="1.0" encoding="utf-8"?><RequestRSUTransaction><vehplateNo>浜珹1234</vehplateNo><money>100</money></RequestRSUTransaction> size=136
+vehNo=浜珹1234, money=100
+vnumber = 浜珹1234
+GetOneMsg success
+msgtype---B2
+now time is 1531963318074
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+sCurTime=20180719092158
+
+GetOneMsg success
+msgtype---B5
+now time is 1531963318504
+m_tcpSrvHandle=2ec62b70, send msg:<RSUTransactionResult>
+    <time>20180719092158</time>
+    <cardIssuerID>b1b1bea911010001</cardIssuerID>
+    <cardChipNo>0716230060000696</cardChipNo>
+    <terminalId>021310000000</terminalId>
+    <cardSerialNo>690</cardSerialNo>
+    <psamSerialNo>1128</psamSerialNo>
+    <cardRnd></cardRnd>
+    <tac>119fb9a0</tac>
+    <cardNetNo>1101</cardNetNo>
+    <transBeforeBalance>-46689</transBeforeBalance>
+    <balance>-46789</balance>
+    <transType>09</transType>
+    <cardType>23</cardType>
+    <originalTransactionDate></originalTransactionDate>
+</RSUTransactionResult>
+
+pTcpSession=1db12d0
+CTcpSession::SendMsg
+
+sendC1 done 
+B5 Done
+now time is 1531963318504
+GetOneMsg success
+msgtype---B2
+now time is 1531963318735
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963319343
+
+sendC1 done 
+close connection============================
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963319605
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963320295
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963320582
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963320833
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963321094
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963321454
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963321752
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963322044
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963322343
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963322593
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963322854
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963323234
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963323575
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963324241
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963324543
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963324914
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963325584
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963326004
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963326324
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963326824
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963327111
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963330174
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963330995
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963331694
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963332682
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963333825
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963336653
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963339732
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963340684
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963340932
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963341271
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963344393
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963344851
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963345102
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963345363
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963345650
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963345911
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963346173
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963346590
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963346981
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963347242
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963347642
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963348553
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963348903
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963349210
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963352632
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963353102
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963353373
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963353723
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963353982
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963357263
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963357573
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963358131
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963358501
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963358913
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963359565
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963360260
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963360662
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963361263
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963361795
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963362091
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963362393
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963362792
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963363462
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963363882
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963364702
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963365093
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963365382
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963365760
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963366021
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963366612
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963366921
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963369980
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963370230
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963370652
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963371140
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963371441
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963371850
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963374820
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963375151
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963375660
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963376000
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963379040
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963379360
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963379719
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963379981
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963380250
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963380588
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963380889
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963381139
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963381391
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963382049
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963382310
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963382809
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963383191
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963386182
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963386810
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963387180
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963387470
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963387840
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963388140
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963388481
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963388761
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963389041
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963389938
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963390188
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963390449
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963393588
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963393899
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963394201
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963394451
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963395230
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963397919
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963398240
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963398599
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
+GetOneMsg success
+msgtype---B2
+now time is 1531963398871
+
+sendC1 done 
+GetOneMsg success
+msgtype---B3
+car number=京A12346
+
+sendC1 done 
+GetOneMsg success
+msgtype---B4
+not received pay request
+
