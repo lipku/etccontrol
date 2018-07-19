@@ -9,6 +9,7 @@
 
 using namespace std;
 char*   log_Time(void);
+string  get_local_Time(void) ;
 
 struct VehInfo
 {

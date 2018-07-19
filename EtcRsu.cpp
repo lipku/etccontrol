@@ -475,7 +475,16 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		m_currVehInfo.sOBUID = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
 		m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->Issuerldentifier, sizeof(msgB2->Issuerldentifier));
 		///* 判断OBU过期 */ //todo
-		//	    printf("send C1 trance\n");
+		/*
+		   std::string Enable_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(Dateoflssue)); 
+		   std::string Expiration_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(DateofExpire)); 
+		   std::string nowtime = get_local_Time();
+		   if(Enable_Data.compare(nowtime) > =0 || Expiration_Data.compare(nowtime) < =0)
+		   {
+		   sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+		   }	
+
+*/
 		log_Time()  ;	    
 		sendC1(msgB2->RSCTL,msgB2->OBUID,mCardFactor);  //todo
 
@@ -928,4 +937,31 @@ char*   log_Time(void)
 	printf("now time is %ld\n",ts);
 }
 
+string  get_local_Time(void)                                                                                                                                                           
+{
+	struct  tm      *ptm;
+	struct  timeb   stTimeb;
+	static  char    szTime[19];
 
+	ftime(&stTimeb);
+	ptm = localtime(&stTimeb.time);
+
+	int year = ptm->tm_year+1900;
+	int month = ptm->tm_mon+1;
+	int day = ptm->tm_mday;
+
+	char chyear[10];
+	char chmonth[10];
+	char chday[10];
+
+	sprintf(chyear, "%d", year);
+	sprintf(chmonth, "%d", month);
+	sprintf(chday, "%d", day);
+
+	string syear(chyear);
+	string smonth(chmonth);
+	string sday(chday);
+
+	string nowtime = syear + "0" + smonth + "0" + sday;
+	return nowtime;
+}
