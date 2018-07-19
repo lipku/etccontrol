@@ -1,4 +1,5 @@
 #include "EtcRsu.h"
+#include <strings.h>
 #include <sys/timeb.h>
 #include <sys/time.h>
 #include <time.h> 
@@ -6,6 +7,7 @@
 
 #include "tinyxml2.h"
 using namespace tinyxml2;
+using namespace std;
 
 /*
  * 字符串转成bcd码，这个是正好偶数个数据的时候，如果是奇数个数据则分左靠还是右靠压缩BCD码
@@ -473,18 +475,17 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 
 		//	    printf("send C1 trance\n");
 		m_currVehInfo.sOBUID = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
-		m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->Issuerldentifier, sizeof(msgB2->Issuerldentifier));
+		m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
 		///* 判断OBU过期 */ //todo
-		/*
-		   std::string Enable_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(Dateoflssue)); 
-		   std::string Expiration_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(DateofExpire)); 
-		   std::string nowtime = get_local_Time();
-		   if(Enable_Data.compare(nowtime) > =0 || Expiration_Data.compare(nowtime) < =0)
-		   {
-		   sendC2(msgB2->RSCTL,1,msgB2->OBUID);
-		   }	
+		std::string  Enable_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(msgB2->Dateoflssue)); 
+		std::string  Expiration_Data = Bin2Hex(msgB2->DateofExpire,sizeof(msgB2->DateofExpire)); 
+		std::string nowtime = get_local_Time();
+		if(Enable_Data.compare(nowtime) >= 0 || Expiration_Data.compare(nowtime) <= 0)
+		{
+			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+		}	
 
-*/
+
 		log_Time()  ;	    
 		sendC1(msgB2->RSCTL,msgB2->OBUID,mCardFactor);  //todo
 
