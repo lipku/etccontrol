@@ -37,7 +37,7 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
 
   //m_pAsioTcp->SendMsg(socket, "echo", 4);
 
-  /*if(nDataSize<=sizeof(MSG_Header))
+  if(nDataSize<=sizeof(MSG_Header))
   {
     printf("recv data len:%d is too short\n", nDataSize);
     return;
@@ -51,11 +51,11 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
     return;
   }
 
-  if(ntohl(header->msgcmd) == 0x1)*/
+  if(ntohl(header->msgcmd) == 0x1)
   {
     //解析xml
     XMLDocument docXml;
-    XMLError errXml = docXml.Parse( pData ); //+sizeof(MSG_Header)
+    XMLError errXml = docXml.Parse( pData+sizeof(MSG_Header) );
     if (XML_SUCCESS == errXml)
     {
       XMLElement* elmtRoot = docXml.RootElement();
@@ -81,7 +81,7 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
   	        }
   	        else
             {
-  	           m_pEtcRsu->AddVehCost(socket,0,string(vehNo),money); //ntohl(header->sequence)
+  	           m_pEtcRsu->AddVehCost(socket,ntohl(header->sequence),string(vehNo),money);
             }		
   	  
             
