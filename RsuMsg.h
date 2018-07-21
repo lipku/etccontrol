@@ -183,6 +183,14 @@ struct MSG_B5
     unsigned char BCC;
 };
 
+struct MSG_Header
+{
+    int identifer; //0xffffffff
+    int sequence;
+    int msglen; //包括消息头大小
+    int msgcmd;
+};
+
 /*
 struct CardTradeInfo   //MTC、ETC刷卡交易使用
 {

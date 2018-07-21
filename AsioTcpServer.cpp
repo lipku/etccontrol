@@ -1,5 +1,6 @@
 #include "AsioTcpServer.h"
 #include "EtcRsu.h"
+#include "RsuMsg.h"
 
 #include "tinyxml2.h"
 using namespace tinyxml2;
@@ -10,7 +11,6 @@ AsioTcpServer::AsioTcpServer(int port, EtcRsu* pEtcRsu)
 
   m_pEtcRsu = pEtcRsu;
 
-  m_currConn = NULL;
  }
 
 int AsioTcpServer::StartRun()
@@ -19,9 +19,9 @@ int AsioTcpServer::StartRun()
   return 0;
 }
 
- int AsioTcpServer::SendMsg(const char* pData, unsigned int nDataSize )
+ int AsioTcpServer::SendMsg(socket_handle socket, const char* pData, unsigned int nDataSize )
  {
-  m_pAsioTcp->SendMsg(m_currConn, pData, nDataSize);
+  m_pAsioTcp->SendMsg(socket, pData, nDataSize);
   return 0;
  }
 
@@ -36,38 +36,56 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
   std::cout << "OnRecvData:" << pData  << " size=" << nDataSize << std::endl;
 
   //m_pAsioTcp->SendMsg(socket, "echo", 4);
-  m_currConn=socket;
 
-  //解析xml
-  XMLDocument docXml;
-  XMLError errXml = docXml.Parse( pData );
-  if (XML_SUCCESS == errXml)
+  if(nDataSize<=sizeof(MSG_Header))
   {
-    XMLElement* elmtRoot = docXml.RootElement();
-    if (elmtRoot)
-    {
-       //printf( "elmtRoot===true\n");
-        const XMLElement* vehElem = elmtRoot->FirstChildElement("vehplateNo");
-        const XMLElement* moneyElem = elmtRoot->FirstChildElement("money");
-        if(vehElem && moneyElem)
-        {
-	//printf( "vehElem===true\n");
-          const char* vehNo = vehElem->GetText();
-          int money=0;
-          moneyElem->QueryIntText( &money );
+    printf("recv data len:%d is too short\n", nDataSize);
+    return;
+  }
+    
+  MSG_Header *header = (MSG_Header*)pData;
+  if(nDataSize!=header->msglen)
+  {
+    printf("recv data size:%d != msgsize:%d\n",nDataSize,header->msglen);
+    return;
+  }
 
-          printf( "vehNo=%s, money=%d\n", vehNo, money);
-	        if(m_pEtcRsu == NULL)
+  if(header->msgcmd == 0x1)
+  {
+    //解析xml
+    XMLDocument docXml;
+    XMLError errXml = docXml.Parse( pData );
+    if (XML_SUCCESS == errXml)
+    {
+      XMLElement* elmtRoot = docXml.RootElement();
+      if (elmtRoot)
+      {
+          XMLElement* elmtData = elmtRoot->FirstChildElement("Data");
+          if(!elmtData)
+            return;
+         //printf( "elmtRoot===true\n");
+          const XMLElement* vehElem = elmtData->FirstChildElement("VehplateNo");
+          const XMLElement* moneyElem = elmtData->FirstChildElement("money");
+          if(vehElem && moneyElem)
           {
-             printf( "m_pEtcRsu===null\n");
-	        }
-	        else
-          {
-	           m_pEtcRsu->AddVehCost(string(vehNo),money);
-          }		
-	  
-          
-        }
+  	//printf( "vehElem===true\n");
+            const char* vehNo = vehElem->GetText();
+            int money=0;
+            moneyElem->QueryIntText( &money );
+
+            printf( "vehNo=%s, money=%d\n", vehNo, money);
+  	        if(m_pEtcRsu == NULL)
+            {
+               printf( "m_pEtcRsu===null\n");
+  	        }
+  	        else
+            {
+  	           m_pEtcRsu->AddVehCost(socket,header->sequence,string(vehNo),money);
+            }		
+  	  
+            
+          }
+      }
     }
   }
 

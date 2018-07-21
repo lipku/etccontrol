@@ -171,12 +171,14 @@ int EtcRsu::CloseDrv()
 }
 
 
-int EtcRsu::AddVehCost(std::string VehNumber, int money)
+int EtcRsu::AddVehCost(socket_handle socket, int sequence, std::string VehNumber, int money)
 {
 	pthread_mutex_lock(&m_vehMutex);
 	m_currVehNumer.assign(VehNumber);// VehNumber;
 	printf("vnumber = %s\n",VehNumber.c_str());
 	m_currPayMoney = money;
+    m_currSocketHandle = socket;
+    m_currSequence = sequence;
 	pthread_mutex_unlock(&m_vehMutex);
 	return 0;
 }
@@ -477,6 +479,20 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		//	    printf("send C1 trance\n");
 		m_currVehInfo.sOBUID = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
 		m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
+        m_currVehInfo.sPlateNumber = "";
+        m_currVehInfo.CardType = 0;
+        m_currVehInfo.PhysicalCardType = 0;
+        m_currVehInfo.TransType = 0;
+        m_currVehInfo.beforeBlance = 0;
+        m_currVehInfo.sCardID = "";
+        m_currVehInfo.sCardSerialNo = "";
+        m_currVehInfo.sCardNetNo = "";
+        m_currVehInfo.sPSAMNo = "";
+        m_currVehInfo.sTransTime = "";
+        m_currVehInfo.iTAC = 0;
+        m_currVehInfo.iICCPayserial = 0;
+        m_currVehInfo.iPSAMTransSerial = 0;
+        m_currVehInfo.afterBlance = 0;
 		///* 判断OBU过期 */ //todo
 		std::string  Enable_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(msgB2->Dateoflssue)); 
 		std::string  Expiration_Data = Bin2Hex(msgB2->DateofExpire,sizeof(msgB2->DateofExpire)); 
@@ -656,7 +672,7 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
 		uint* itmp  = (uint*)&cardblance;
 		m_currVehInfo.afterBlance = *itmp;
 
-		ResonseTcpSrv(&m_currVehInfo);
+		ResonseTcpSrv(&m_currVehInfo,0);
 		//memset(&m_currVehInfo,0,sizeof(VehInfo));
 
 		sendC1(msgB5->RSCTL,msgB5->OBUID,mCardFactor);
@@ -877,67 +893,80 @@ void EtcRsu::openAntenna(bool open)
 	//    }
 }
 
-int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo)
+int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo,int errcode)
 {
 	char buffer [30];
 
 	XMLDocument* doc = new XMLDocument();
-	XMLNode* rootElem = doc->InsertEndChild( doc->NewElement( "RSUTransactionResult" ) );
+	XMLNode* rootElem = doc->InsertEndChild( doc->NewElement( "MessageInfo" ) );
 
-	XMLNode* timeElem = rootElem->InsertEndChild( doc->NewElement( "time" ) );
+    XMLNode* typeElem = rootElem->InsertEndChild( doc->NewElement( "sType" ) );
+    typeElem->InsertFirstChild(doc->NewText("Transaction"));
+
+    memset(buffer,0,sizeof(buffer));
+    sprintf(buffer,"%d",errcode);
+    XMLNode* codeElem = rootElem->InsertEndChild( doc->NewElement( "rCode" ) );
+    codeElem->InsertFirstChild(doc->NewText(buffer));
+
+    XMLNode* tTypeElem = rootElem->InsertEndChild( doc->NewElement( "tType" ) );
+    tTypeElem->InsertFirstChild(doc->NewText("01"));
+
+    XMLNode* dataElem = rootElem->InsertEndChild( doc->NewElement( "Data" ) );
+
+	XMLNode* timeElem = dataElem->InsertEndChild( doc->NewElement( "time" ) );
 	timeElem->InsertFirstChild(doc->NewText(vehinfo->sTransTime.c_str()));
 
-	XMLNode* issueridElem = rootElem->InsertEndChild( doc->NewElement( "cardIssuerID" ) );
+	XMLNode* issueridElem = dataElem->InsertEndChild( doc->NewElement( "cardIssuerID" ) );
 	issueridElem->InsertFirstChild(doc->NewText(vehinfo->sIssuerldentifier.c_str()));
 
-	XMLNode* chipnoElem = rootElem->InsertEndChild( doc->NewElement( "cardChipNo" ) );
+	XMLNode* chipnoElem = dataElem->InsertEndChild( doc->NewElement( "cardChipNo" ) );
 	chipnoElem->InsertFirstChild(doc->NewText(vehinfo->sCardSerialNo.c_str()));
 
-	XMLNode* termElem = rootElem->InsertEndChild( doc->NewElement( "terminalId" ) );
+	XMLNode* termElem = dataElem->InsertEndChild( doc->NewElement( "terminalId" ) );
 	termElem->InsertFirstChild(doc->NewText(m_RSUTerminalld.c_str()));
 
 	memset(buffer,0,sizeof(buffer));
 	sprintf(buffer,"%d",vehinfo->iICCPayserial);
-	XMLNode* cardSerialElem = rootElem->InsertEndChild( doc->NewElement( "cardSerialNo" ) );
+	XMLNode* cardSerialElem = dataElem->InsertEndChild( doc->NewElement( "cardSerialNo" ) );
 	cardSerialElem->InsertFirstChild(doc->NewText(buffer));
 
 	memset(buffer,0,sizeof(buffer));
 	sprintf(buffer,"%d",vehinfo->iPSAMTransSerial);
-	XMLNode* psamSerialElem = rootElem->InsertEndChild( doc->NewElement( "psamSerialNo" ) );
+	XMLNode* psamSerialElem = dataElem->InsertEndChild( doc->NewElement( "psamSerialNo" ) );
 	psamSerialElem->InsertFirstChild(doc->NewText(buffer));
 
-	XMLNode* cardRndElem = rootElem->InsertEndChild( doc->NewElement( "cardRnd" ) );
+	XMLNode* cardRndElem = dataElem->InsertEndChild( doc->NewElement( "cardRnd" ) );
 	cardRndElem->InsertFirstChild(doc->NewText(""));  //todo
 
 	memset(buffer,0,sizeof(buffer));
 	sprintf(buffer,"%x",vehinfo->iTAC);
-	XMLNode* tacElem = rootElem->InsertEndChild( doc->NewElement( "tac" ) );
+	XMLNode* tacElem = dataElem->InsertEndChild( doc->NewElement( "tac" ) );
 	tacElem->InsertFirstChild(doc->NewText(buffer));
 
-	XMLNode* cardNetElem = rootElem->InsertEndChild( doc->NewElement( "cardNetNo" ) );
+	XMLNode* cardNetElem = dataElem->InsertEndChild( doc->NewElement( "cardNetNo" ) );
 	cardNetElem->InsertFirstChild(doc->NewText(vehinfo->sCardNetNo.c_str()));
 
 	memset(buffer,0,sizeof(buffer));
 	sprintf(buffer,"%d",vehinfo->beforeBlance);
-	XMLNode* transBeforeElem = rootElem->InsertEndChild( doc->NewElement( "transBeforeBalance" ) );
+	XMLNode* transBeforeElem = dataElem->InsertEndChild( doc->NewElement( "transBeforeBalance" ) );
 	transBeforeElem->InsertFirstChild(doc->NewText(buffer));
 
 	memset(buffer,0,sizeof(buffer));
 	sprintf(buffer,"%d",vehinfo->afterBlance);
-	XMLNode* balanceElem = rootElem->InsertEndChild( doc->NewElement( "balance" ) );
+	XMLNode* balanceElem = dataElem->InsertEndChild( doc->NewElement( "balance" ) );
 	balanceElem->InsertFirstChild(doc->NewText(buffer));
 
 	memset(buffer,0,sizeof(buffer));
 	sprintf(buffer,"%02x",vehinfo->TransType);
-	XMLNode* transTypeElem = rootElem->InsertEndChild( doc->NewElement( "transType" ) );
+	XMLNode* transTypeElem = dataElem->InsertEndChild( doc->NewElement( "transType" ) );
 	transTypeElem->InsertFirstChild(doc->NewText(buffer));
 
 	memset(buffer,0,sizeof(buffer));
 	sprintf(buffer,"%d",vehinfo->CardType);
-	XMLNode* cardTypeElem = rootElem->InsertEndChild( doc->NewElement( "cardType" ) );
+	XMLNode* cardTypeElem = dataElem->InsertEndChild( doc->NewElement( "cardType" ) );
 	cardTypeElem->InsertFirstChild(doc->NewText(buffer));
 
-	XMLNode* originalTransactionDateElem = rootElem->InsertEndChild( doc->NewElement( "originalTransactionDate" ) );
+	XMLNode* originalTransactionDateElem = dataElem->InsertEndChild( doc->NewElement( "originalTransactionDate" ) );
 	originalTransactionDateElem->InsertFirstChild(doc->NewText(""));
 
 	XMLPrinter printer;
@@ -945,7 +974,17 @@ int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo)
 	log_Time();
 	printf("m_tcpSrvHandle=%x, send msg:%s\n", m_tcpSrvHandle, printer.CStr());
 	if(m_tcpSrvHandle)
-		m_tcpSrvHandle->SendMsg(printer.CStr(),printer.CStrSize());
+    {
+        unsigned char* buffer=new unsigned char[printer.CStrSize()+sizeof(MSG_Header)];
+        MSG_Header *header = (MSG_Header*)buffer;
+        header->identifer = 0xffffffff;
+        header->sequence = m_currSequence;
+        header->msglen = printer.CStrSize()+sizeof(MSG_Header);
+        header->msgcmd = 0x1;
+        memcpy(buffer+sizeof(MSG_Header), printer.CStr(), printer.CStrSize());
+		m_tcpSrvHandle->SendMsg(m_currSocketHandle, (const char*)buffer, printer.CStrSize()+sizeof(MSG_Header));
+        delete buffer;
+    }
 
 	delete doc;
 

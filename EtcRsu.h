@@ -7,6 +7,8 @@
 #include "BufferedAsyncSerial.h"
 #include "RsuMsg.h"
 
+typedef void* socket_handle;
+
 using namespace std;
 char*   log_Time(void);
 string  get_local_Time(void) ;
@@ -51,7 +53,7 @@ public:
     void WriteSerial(std::vector<unsigned char>& buff);
     void run(); //process msg thread
 
-    int AddVehCost(std::string VehNumber, int money);
+    int AddVehCost(socket_handle socket, int sequence, std::string VehNumber, int money);
     int SetTcpSrvHandle(AsioTcpServer *tcpHandle);
     
 private:
@@ -70,6 +72,8 @@ private:
 
     std::string m_currVehNumer;
     int m_currPayMoney;
+    socket_handle m_currSocketHandle;
+    int m_currSequence;
     pthread_mutex_t m_vehMutex;
 
     AsioTcpServer *m_tcpSrvHandle;
@@ -79,7 +83,7 @@ private:
     int CloseDrv();
     int Read();
 
-    int ResonseTcpSrv(VehInfo* vehinfo);
+    int ResonseTcpSrv(VehInfo* vehinfo,int errcode);
     //QByteArray GetOneMsg(bool* ok);
     bool beforDealRec(std::vector<unsigned char>& result);
     std::vector<unsigned char> beforDealSnd(std::vector<unsigned char>& msg);
