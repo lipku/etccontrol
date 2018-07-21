@@ -478,7 +478,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 
 		//	    printf("send C1 trance\n");
 		m_currVehInfo.sOBUID = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
-		m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
+		m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->Issuerldentifier, sizeof(msgB2->Issuerldentifier));
         m_currVehInfo.sPlateNumber = "";
         m_currVehInfo.CardType = 0;
         m_currVehInfo.PhysicalCardType = 0;
@@ -493,6 +493,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
         m_currVehInfo.iICCPayserial = 0;
         m_currVehInfo.iPSAMTransSerial = 0;
         m_currVehInfo.afterBlance = 0;
+
 		///* 判断OBU过期 */ //todo
 		std::string  Enable_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(msgB2->Dateoflssue)); 
 		std::string  Expiration_Data = Bin2Hex(msgB2->DateofExpire,sizeof(msgB2->DateofExpire)); 
