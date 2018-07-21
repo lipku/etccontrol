@@ -979,9 +979,9 @@ int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo,int errcode)
         unsigned char* buffer=new unsigned char[printer.CStrSize()+sizeof(MSG_Header)];
         MSG_Header *header = (MSG_Header*)buffer;
         header->identifer = 0xffffffff;
-        header->sequence = m_currSequence;
-        header->msglen = printer.CStrSize()+sizeof(MSG_Header);
-        header->msgcmd = 0x1;
+        header->sequence = htonl(m_currSequence);
+        header->msglen = htonl(printer.CStrSize()+sizeof(MSG_Header));
+        header->msgcmd = htonl(0x1);
         memcpy(buffer+sizeof(MSG_Header), printer.CStr(), printer.CStrSize());
 		m_tcpSrvHandle->SendMsg(m_currSocketHandle, (const char*)buffer, printer.CStrSize()+sizeof(MSG_Header));
         delete buffer;

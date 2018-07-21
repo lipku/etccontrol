@@ -44,14 +44,14 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
   }
     
   MSG_Header *header = (MSG_Header*)pData;
-  if(nDataSize!=header->msglen)
+  printf("header info, msgsize=%d,seq=%d,msgcmd=%d\n",ntohl(header->msglen),ntohl(header->sequence), ntohl(header->msgcmd));
+  if(nDataSize!=ntohl(header->msglen))
   {
-    printf("recv data size:%d != msgsize:%d\n",nDataSize,header->msglen);
+    printf("recv data size:%d != msgsize:%d\n",nDataSize,ntohl(header->msglen));
     return;
   }
-  printf("header info, msgsize=%d,seq=%d,msgcmd=%d\n",header->msglen,header->sequence, header->msgcmd);
 
-  if(header->msgcmd == 0x1)
+  if(ntohl(header->msgcmd) == 0x1)
   {
     //解析xml
     XMLDocument docXml;
@@ -81,7 +81,7 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
   	        }
   	        else
             {
-  	           m_pEtcRsu->AddVehCost(socket,header->sequence,string(vehNo),money);
+  	           m_pEtcRsu->AddVehCost(socket,ntohl(header->sequence),string(vehNo),money);
             }		
   	  
             
