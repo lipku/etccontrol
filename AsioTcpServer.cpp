@@ -54,7 +54,7 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
   {
     //解析xml
     XMLDocument docXml;
-    XMLError errXml = docXml.Parse( pData );
+    XMLError errXml = docXml.Parse( pData+sizeof(MSG_Header) );
     if (XML_SUCCESS == errXml)
     {
       XMLElement* elmtRoot = docXml.RootElement();
