@@ -49,6 +49,7 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
     printf("recv data size:%d != msgsize:%d\n",nDataSize,header->msglen);
     return;
   }
+  printf("header info, msgsize=%d,seq=%d,msgcmd=%d\n",header->msglen,header->sequence, header->msgcmd);
 
   if(header->msgcmd == 0x1)
   {
