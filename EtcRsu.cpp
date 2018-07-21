@@ -9,6 +9,7 @@
 using namespace tinyxml2;
 using namespace std;
 
+std::string B2_Issuerldentifier;
 /*
  * 字符串转成bcd码，这个是正好偶数个数据的时候，如果是奇数个数据则分左靠还是右靠压缩BCD码
  */
@@ -480,8 +481,12 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		std::string  Enable_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(msgB2->Dateoflssue)); 
 		std::string  Expiration_Data = Bin2Hex(msgB2->DateofExpire,sizeof(msgB2->DateofExpire)); 
 		std::string nowtime = get_local_Time();
+		B2_Issuerldentifier = Bin2Hex(msgB2->Issuerldentifier, sizeof(msgB2->Issuerldentifier));    //B2和0015的发卡方做对比
+		cout <<"B2_Issuerldentifier:"<<B2_Issuerldentifier<<endl;
+		cout << "B2  Enable_Data:" <<Enable_Data <<"          Expiration_Data:" <<Expiration_Data <<"             nowtime:"<<nowtime<<endl;
 		if(Enable_Data.compare(nowtime) >= 0 || Expiration_Data.compare(nowtime) <= 0)
 		{
+			cout <<"OBU已过期"<<endl;
 			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
 		}	
 
@@ -570,7 +575,34 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	m_currVehInfo.sCardID = Bin2Hex(msgB4->CardID,sizeof(msgB4->CardID));
 	m_currVehInfo.sCardNetNo = Bin2Hex((unsigned char*)msgB4->f0015.CardNetNo,sizeof(msgB4->f0015.CardNetNo));
 
-	/// 判断OBU状态代码
+
+	//根据0015文件判断卡片是否过期
+	std::string  Enable_Data = Bin2Hex((unsigned char*)msgB4->f0015.ContractDate,sizeof(msgB4->f0015.ContractDate)); 
+	std::string  Expiration_Data = Bin2Hex((unsigned char*)msgB4->f0015.ExpiredDate,sizeof(msgB4->f0015.ExpiredDate)); 
+	std::string nowtime = get_local_Time();
+	cout << "B4  Enable_Data:" <<Enable_Data <<"          Expiration_Data:" <<Expiration_Data <<"             nowtime:"<<nowtime<<endl;
+	if(Enable_Data.compare(nowtime) >= 0 || Expiration_Data.compare(nowtime) <= 0)
+	{
+		cout<<"0015文件判断卡片过期"<<endl;
+		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
+
+	}
+
+	//根据0015和B2的发卡方进行比较
+	std::string  B4_0015_Issuerldentifier = Bin2Hex((unsigned char*)msgB4->f0015.ContractProvider,sizeof(msgB4->f0015.ContractProvider)); 
+//	std::string  B4_0015_Issuerldentifier = Bin2Hex(msgB4->f0015.ContractProvider,sizeof(msgB4->f0015.ContractProvider)); 
+	cout <<"B4_0015_Issuerldentifier :"<<B4_0015_Issuerldentifier <<"         B2_Issuerldentifier:"<<B2_Issuerldentifier<<endl;
+	if(B2_Issuerldentifier.compare(B4_0015_Issuerldentifier) != 0 && B4_0015_Issuerldentifier.compare("0000000000000000") != 0)
+	{
+		cout <<"B4_0015_Issuerldentifier not Not equal to B2_Issuerldentifier"<<endl;
+		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
+
+	}
+
+//	std::string  B4_0015_VehiclePlateNumber = Bin2Hex((unsigned char*)msgB4->f0015.VehiclePlateNumber,sizeof(msgB4->f0015.VehiclePlateNumber)); 
+    //    cout << "B4_0015_VehiclePlateNumber:"<<<<endl;
+ printf("B4car number=%s\n", msgB4->f0015.VehiclePlateNumber);
+
 
 
 	//  sendC6(msgB4->RSCTL,msgB4->OBUID,1,timep,msgB4->f0019,mCardFactor);
@@ -956,13 +988,72 @@ string  get_local_Time(void)
 	char chday[10];
 
 	sprintf(chyear, "%d", year);
-	sprintf(chmonth, "%d", month);
-	sprintf(chday, "%d", day);
+	sprintf(chmonth, "%2d", month);
+	sprintf(chday, "%2d", day);
 
 	string syear(chyear);
 	string smonth(chmonth);
 	string sday(chday);
 
-	string nowtime = syear + "0" + smonth + "0" + sday;
+	string nowtime = syear  + smonth  + sday;
 	return nowtime;
 }
+
+
+/*
+ //读配置文件初始化配置
+void ReadConfigurationFile(EtcRsu etcRsu)  
+{  
+	XMLDocument doc;  
+	doc.LoadFile("bcspftp.xml");  
+	XMLElement *scene=doc.RootElement();  
+	XMLElement *surface=scene->LastChildElement("SysConfigure");  
+	XMLElement *surfaceChild=surface->FirstChildElement();  
+
+
+	const char* devicechuan;  
+	const char* aerialtype; //天线类型 
+	const char* aerialpower; //天线功率 
+	const char* aerialrate;//天线波特率  
+	const char* serialnumber; //天线串口号 
+	const char* cardserialnumber; //读卡器串口号 
+
+
+	const XMLAttribute *attributeOfSurface = surface->FirstAttribute();  
+	cout<< attributeOfSurface->Name() << ":" << attributeOfSurface->Value() << endl;  
+
+	//总揽
+	devicechuan=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<devicechuan<<endl;  
+
+
+	//天线类型
+	aerialtype=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<aerialtype<<endl;  
+
+	//天线功率
+	aerialpower=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<aerialpower<<endl;  
+
+	//天线波特率
+	aerialrate=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<aerialrate<<endl;  
+
+
+	//天线串口号
+	serialnumber=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<serialnumber<<endl;  
+
+
+	//读卡器串口号
+	cardserialnumber=surfaceChild->GetText();  
+	cout<<cardserialnumber<<endl;  
+
+
+
+}*/ 

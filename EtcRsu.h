@@ -108,4 +108,5 @@ private:
 
 };
 
+void ReadConfigurationFile(EtcRsu etcRsu) ;
 #endif // ETCRSU_H
