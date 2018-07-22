@@ -51,7 +51,7 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
     return;
   }
 
-  if(ntohl(header->msgcmd) == 0x1)
+  if(ntohl(header->msgcmd) == 0x1) //扣费请求
   {
     //解析xml
     XMLDocument docXml;
@@ -83,10 +83,20 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
             {
   	           m_pEtcRsu->AddVehCost(socket,ntohl(header->sequence),string(vehNo),money);
             }		
-  	  
-            
+  	              
           }
       }
+    }
+  }
+  else if(ntohl(header->msgcmd) == 0x2) //当前扫描车牌
+  {
+    //解析xml
+    XMLDocument docXml;
+    XMLError errXml = docXml.Parse( pData+sizeof(MSG_Header) );
+    if (XML_SUCCESS == errXml)
+    {
+      if(m_pEtcRsu)
+		  m_pEtcRsu->AddVehNumber(socket,ntohl(header->sequence));
     }
   }
 

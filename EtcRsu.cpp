@@ -179,7 +179,16 @@ int EtcRsu::AddVehCost(socket_handle socket, int sequence, std::string VehNumber
 	m_currPayMoney = money;
     m_currSocketHandle = socket;
     m_currSequence = sequence;
+	m_lastRecvTime = (unsigned int)time(NULL);
 	pthread_mutex_unlock(&m_vehMutex);
+	return 0;
+}
+
+int EtcRsu::AddVehNumber(socket_handle socket, int sequence)
+{
+    m_numberSequence = sequence;
+	m_numberRecvTime = (unsigned int)time(NULL);
+	m_numberSocketHandle = socket;
 	return 0;
 }
 
@@ -673,7 +682,7 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
 		uint* itmp  = (uint*)&cardblance;
 		m_currVehInfo.afterBlance = *itmp;
 
-		ResonseTcpSrv(&m_currVehInfo,0);
+		ResonseVehCost(&m_currVehInfo,0);
 		//memset(&m_currVehInfo,0,sizeof(VehInfo));
 
 		sendC1(msgB5->RSCTL,msgB5->OBUID,mCardFactor);
@@ -809,10 +818,22 @@ void EtcRsu::run()
 				this->sendMsg2Logic(oneMsg);
 			}
 		}
-		//   else{
+		else if((unsigned int)time(NULL)-m_lastRecvTime > 6)
+		{
+			ResonseVehCost(&m_currVehInfo,20); //返回超时消息
+		}
+		else if(m_numberSocketHandle)
+		{
+			if((unsigned int)time(NULL)-m_numberRecvTime > 6)
+				ResonseVehNumber(&m_currVehInfo,20); //返回超时消息
+			else if(!m_currVehInfo.sPlateNumber.empty())
+				ResonseVehNumber(&m_currVehInfo,0); 
+		}
+		else
+		{
 		//printf("check err\n");
-		usleep(1*1000);
-		//  }
+			usleep(10*1000);
+		}
 
 	}
 	CloseDrv();
@@ -894,7 +915,7 @@ void EtcRsu::openAntenna(bool open)
 	//    }
 }
 
-int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo,int errcode)
+int EtcRsu::ResonseVehCost(VehInfo* vehinfo,int errcode)
 {
 	char buffer [30];
 
@@ -988,6 +1009,50 @@ int EtcRsu::ResonseTcpSrv(VehInfo* vehinfo,int errcode)
     }
 
 	delete doc;
+
+	return 0;
+}
+
+int EtcRsu::ResonseVehNumber(VehInfo* vehinfo,int errcode)
+{
+	char buffer [30];
+
+	XMLDocument* doc = new XMLDocument();
+	XMLNode* rootElem = doc->InsertEndChild( doc->NewElement( "MessageInfo" ) );
+
+    XMLNode* typeElem = rootElem->InsertEndChild( doc->NewElement( "sType" ) );
+    typeElem->InsertFirstChild(doc->NewText("qVehplateNo"));
+
+    memset(buffer,0,sizeof(buffer));
+    sprintf(buffer,"%d",errcode);
+    XMLNode* codeElem = rootElem->InsertEndChild( doc->NewElement( "rCode" ) );
+    codeElem->InsertFirstChild(doc->NewText(buffer));
+
+    XMLNode* dataElem = rootElem->InsertEndChild( doc->NewElement( "Data" ) );
+
+	XMLNode* timeElem = dataElem->InsertEndChild( doc->NewElement( "VehplateNo" ) );
+	timeElem->InsertFirstChild(doc->NewText(vehinfo->sPlateNumber.c_str()));
+
+
+	XMLPrinter printer;
+	doc->Print( &printer );
+	log_Time();
+	printf("m_tcpSrvHandle=%x, send msg:%s\n", m_tcpSrvHandle, printer.CStr());
+	if(m_tcpSrvHandle)
+    {
+        unsigned char* buffer=new unsigned char[printer.CStrSize()+sizeof(MSG_Header)];
+        MSG_Header *header = (MSG_Header*)buffer;
+        header->identifer = 0xffffffff;
+        header->sequence = htonl(m_numberSequence);
+        header->msglen = htonl(printer.CStrSize()+sizeof(MSG_Header));
+        header->msgcmd = htonl(0x2);
+        memcpy(buffer+sizeof(MSG_Header), printer.CStr(), printer.CStrSize());
+		m_tcpSrvHandle->SendMsg(m_numberSocketHandle, (const char*)buffer, printer.CStrSize()+sizeof(MSG_Header));
+        delete buffer;
+    }
+	delete doc;
+
+	m_numberSocketHandle = NULL;
 
 	return 0;
 }

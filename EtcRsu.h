@@ -54,6 +54,7 @@ public:
     void run(); //process msg thread
 
     int AddVehCost(socket_handle socket, int sequence, std::string VehNumber, int money);
+	int AddVehNumber(socket_handle socket, int sequence);
     int SetTcpSrvHandle(AsioTcpServer *tcpHandle);
     
 private:
@@ -74,7 +75,12 @@ private:
     int m_currPayMoney;
     socket_handle m_currSocketHandle;
     int m_currSequence;
+	unsigned int m_lastRecvTime;
     pthread_mutex_t m_vehMutex;
+
+	socket_handle m_numberSocketHandle=NULL;
+    int m_numberSequence;
+	unsigned int m_numberRecvTime;
 
     AsioTcpServer *m_tcpSrvHandle;
 
@@ -83,7 +89,8 @@ private:
     int CloseDrv();
     int Read();
 
-    int ResonseTcpSrv(VehInfo* vehinfo,int errcode);
+    int ResonseVehCost(VehInfo* vehinfo,int errcode);
+	int ResonseVehNumber(VehInfo* vehinfo,int errcode);
     //QByteArray GetOneMsg(bool* ok);
     bool beforDealRec(std::vector<unsigned char>& result);
     std::vector<unsigned char> beforDealSnd(std::vector<unsigned char>& msg);
