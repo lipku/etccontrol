@@ -78,7 +78,7 @@ private:
 	unsigned int m_lastRecvTime;
     pthread_mutex_t m_vehMutex;
 
-	socket_handle m_numberSocketHandle=NULL;
+	socket_handle m_numberSocketHandle;
     int m_numberSequence;
 	unsigned int m_numberRecvTime;
 

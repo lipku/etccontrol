@@ -91,8 +91,11 @@ EtcRsu::EtcRsu()
 
 	m_currVehNumer = "";
 	m_currPayMoney = 0;
+	m_currSocketHandle=NULL;
 
 	pthread_mutex_init(&m_vehMutex,NULL);
+
+	m_numberSocketHandle=NULL;
 
 	m_tcpSrvHandle = NULL;
 }
@@ -818,9 +821,12 @@ void EtcRsu::run()
 				this->sendMsg2Logic(oneMsg);
 			}
 		}
-		else if((unsigned int)time(NULL)-m_lastRecvTime > 6)
+		else if(m_currSocketHandle)
 		{
-			ResonseVehCost(&m_currVehInfo,20); //返回超时消息
+                        if((unsigned int)time(NULL)-m_lastRecvTime >6)
+			{
+				ResonseVehCost(&m_currVehInfo,20); //返回超时消息
+			}
 		}
 		else if(m_numberSocketHandle)
 		{
@@ -920,6 +926,7 @@ int EtcRsu::ResonseVehCost(VehInfo* vehinfo,int errcode)
 	char buffer [30];
 
 	XMLDocument* doc = new XMLDocument();
+XMLNode* head = doc->InsertEndChild(doc->NewDeclaration("xml version=\"1.0\" encoding=\"utf-8\"")); 
 	XMLNode* rootElem = doc->InsertEndChild( doc->NewElement( "MessageInfo" ) );
 
     XMLNode* typeElem = rootElem->InsertEndChild( doc->NewElement( "sType" ) );
@@ -1009,6 +1016,8 @@ int EtcRsu::ResonseVehCost(VehInfo* vehinfo,int errcode)
     }
 
 	delete doc;
+
+	m_currSocketHandle=NULL;
 
 	return 0;
 }
