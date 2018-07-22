@@ -1021,7 +1021,7 @@ int EtcRsu::ResonseVehCost(VehInfo* vehinfo,int errcode)
 	doc->Print( &printer );
 	log_Time();
 	printf("m_tcpSrvHandle=%x, send msg:%s\n", m_tcpSrvHandle, printer.CStr());
-	if(m_tcpSrvHandle)
+	if(m_tcpSrvHandle && m_currSocketHandle)
 	{
 		unsigned char* buffer=new unsigned char[printer.CStrSize()+sizeof(MSG_Header)];
 		MSG_Header *header = (MSG_Header*)buffer;
