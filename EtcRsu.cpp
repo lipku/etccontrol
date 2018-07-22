@@ -10,6 +10,7 @@ using namespace tinyxml2;
 using namespace std;
 
 std::string B2_Issuerldentifier;
+std::string  B3_PlateNumber;
 /*
  * 字符串转成bcd码，这个是正好偶数个数据的时候，如果是奇数个数据则分左靠还是右靠压缩BCD码
  */
@@ -180,8 +181,8 @@ int EtcRsu::AddVehCost(socket_handle socket, int sequence, std::string VehNumber
 	m_currVehNumer.assign(VehNumber);// VehNumber;
 	printf("vnumber = %s\n",VehNumber.c_str());
 	m_currPayMoney = money;
-    m_currSocketHandle = socket;
-    m_currSequence = sequence;
+	m_currSocketHandle = socket;
+	m_currSequence = sequence;
 	m_lastRecvTime = (unsigned int)time(NULL);
 	pthread_mutex_unlock(&m_vehMutex);
 	return 0;
@@ -189,7 +190,7 @@ int EtcRsu::AddVehCost(socket_handle socket, int sequence, std::string VehNumber
 
 int EtcRsu::AddVehNumber(socket_handle socket, int sequence)
 {
-    m_numberSequence = sequence;
+	m_numberSequence = sequence;
 	m_numberRecvTime = (unsigned int)time(NULL);
 	m_numberSocketHandle = socket;
 	return 0;
@@ -491,20 +492,20 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		//	    printf("send C1 trance\n");
 		m_currVehInfo.sOBUID = Bin2Hex(msgB2->OBUID, sizeof(msgB2->OBUID));
 		m_currVehInfo.sIssuerldentifier = Bin2Hex(msgB2->Issuerldentifier, sizeof(msgB2->Issuerldentifier));
-        m_currVehInfo.sPlateNumber = "";
-        m_currVehInfo.CardType = 0;
-        m_currVehInfo.PhysicalCardType = 0;
-        m_currVehInfo.TransType = 0;
-        m_currVehInfo.beforeBlance = 0;
-        m_currVehInfo.sCardID = "";
-        m_currVehInfo.sCardSerialNo = "";
-        m_currVehInfo.sCardNetNo = "";
-        m_currVehInfo.sPSAMNo = "";
-        m_currVehInfo.sTransTime = "";
-        m_currVehInfo.iTAC = 0;
-        m_currVehInfo.iICCPayserial = 0;
-        m_currVehInfo.iPSAMTransSerial = 0;
-        m_currVehInfo.afterBlance = 0;
+		m_currVehInfo.sPlateNumber = "";
+		m_currVehInfo.CardType = 0;
+		m_currVehInfo.PhysicalCardType = 0;
+		m_currVehInfo.TransType = 0;
+		m_currVehInfo.beforeBlance = 0;
+		m_currVehInfo.sCardID = "";
+		m_currVehInfo.sCardSerialNo = "";
+		m_currVehInfo.sCardNetNo = "";
+		m_currVehInfo.sPSAMNo = "";
+		m_currVehInfo.sTransTime = "";
+		m_currVehInfo.iTAC = 0;
+		m_currVehInfo.iICCPayserial = 0;
+		m_currVehInfo.iPSAMTransSerial = 0;
+		m_currVehInfo.afterBlance = 0;
 
 		///* 判断OBU过期 */ //todo
 		std::string  Enable_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(msgB2->Dateoflssue)); 
@@ -544,6 +545,10 @@ void EtcRsu::receiveB3(std::vector<unsigned char>& buff)
 		return;
 	}
 	//todo 保存车辆信息
+
+	B3_PlateNumber = Bin2Hex((unsigned char*)msgB3->PlateNumber,sizeof(msgB3->PlateNumber));
+	cout <<"B3_PlateNumber:"<<B3_PlateNumber<<endl;
+
 	printf("car number=%s\n", msgB3->PlateNumber);
 	m_currVehInfo.sPlateNumber = std::string((const char*)msgB3->PlateNumber);//Bin2Hex(msgB3->PlateNumber, sizeof(msgB3->PlateNumber));
 
@@ -619,7 +624,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 
 	//根据0015和B2的发卡方进行比较
 	std::string  B4_0015_Issuerldentifier = Bin2Hex((unsigned char*)msgB4->f0015.ContractProvider,sizeof(msgB4->f0015.ContractProvider)); 
-//	std::string  B4_0015_Issuerldentifier = Bin2Hex(msgB4->f0015.ContractProvider,sizeof(msgB4->f0015.ContractProvider)); 
+	//	std::string  B4_0015_Issuerldentifier = Bin2Hex(msgB4->f0015.ContractProvider,sizeof(msgB4->f0015.ContractProvider)); 
 	cout <<"B4_0015_Issuerldentifier :"<<B4_0015_Issuerldentifier <<"         B2_Issuerldentifier:"<<B2_Issuerldentifier<<endl;
 	if(B2_Issuerldentifier.compare(B4_0015_Issuerldentifier) != 0 && B4_0015_Issuerldentifier.compare("0000000000000000") != 0)
 	{
@@ -628,9 +633,23 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 
 	}
 
-//	std::string  B4_0015_VehiclePlateNumber = Bin2Hex((unsigned char*)msgB4->f0015.VehiclePlateNumber,sizeof(msgB4->f0015.VehiclePlateNumber)); 
-    //    cout << "B4_0015_VehiclePlateNumber:"<<<<endl;
- printf("B4car number=%s\n", msgB4->f0015.VehiclePlateNumber);
+	//	std::string  B4_0015_VehiclePlateNumber = Bin2Hex((unsigned char*)msgB4->f0015.VehiclePlateNumber,sizeof(msgB4->f0015.VehiclePlateNumber)); 
+	//    cout << "B4_0015_VehiclePlateNumber:"<<<<endl;
+
+
+	//判断是否绑定车牌号
+	std::string  B4_0015_VehiclePlateNumber = Bin2Hex((unsigned char*)msgB4->f0015.VehiclePlateNumber,sizeof(msgB4->f0015.VehiclePlateNumber)); 
+	cout << "B4_0015_VehiclePlateNumber:"<<endl;
+	if(B3_PlateNumber.compare(B4_0015_VehiclePlateNumber) != 0)
+	{
+		cout <<"B4_0015_VehiclePlateNumber != B3_PlateNumber"<<endl;
+
+	}
+	printf("B4car number=%s\n", msgB4->f0015.VehiclePlateNumber);
+
+
+
+//判断是否绑定黑名单
 
 
 
@@ -823,7 +842,7 @@ void EtcRsu::run()
 		}
 		else if(m_currSocketHandle)
 		{
-                        if((unsigned int)time(NULL)-m_lastRecvTime >6)
+			if((unsigned int)time(NULL)-m_lastRecvTime >6)
 			{
 				ResonseVehCost(&m_currVehInfo,20); //返回超时消息
 			}
@@ -837,7 +856,7 @@ void EtcRsu::run()
 		}
 		else
 		{
-		//printf("check err\n");
+			//printf("check err\n");
 			usleep(10*1000);
 		}
 
@@ -926,21 +945,21 @@ int EtcRsu::ResonseVehCost(VehInfo* vehinfo,int errcode)
 	char buffer [30];
 
 	XMLDocument* doc = new XMLDocument();
-XMLNode* head = doc->InsertEndChild(doc->NewDeclaration("xml version=\"1.0\" encoding=\"utf-8\"")); 
+	XMLNode* head = doc->InsertEndChild(doc->NewDeclaration("xml version=\"1.0\" encoding=\"utf-8\"")); 
 	XMLNode* rootElem = doc->InsertEndChild( doc->NewElement( "MessageInfo" ) );
 
-    XMLNode* typeElem = rootElem->InsertEndChild( doc->NewElement( "sType" ) );
-    typeElem->InsertFirstChild(doc->NewText("Transaction"));
+	XMLNode* typeElem = rootElem->InsertEndChild( doc->NewElement( "sType" ) );
+	typeElem->InsertFirstChild(doc->NewText("Transaction"));
 
-    memset(buffer,0,sizeof(buffer));
-    sprintf(buffer,"%d",errcode);
-    XMLNode* codeElem = rootElem->InsertEndChild( doc->NewElement( "rCode" ) );
-    codeElem->InsertFirstChild(doc->NewText(buffer));
+	memset(buffer,0,sizeof(buffer));
+	sprintf(buffer,"%d",errcode);
+	XMLNode* codeElem = rootElem->InsertEndChild( doc->NewElement( "rCode" ) );
+	codeElem->InsertFirstChild(doc->NewText(buffer));
 
-    XMLNode* tTypeElem = rootElem->InsertEndChild( doc->NewElement( "tType" ) );
-    tTypeElem->InsertFirstChild(doc->NewText("01"));
+	XMLNode* tTypeElem = rootElem->InsertEndChild( doc->NewElement( "tType" ) );
+	tTypeElem->InsertFirstChild(doc->NewText("01"));
 
-    XMLNode* dataElem = rootElem->InsertEndChild( doc->NewElement( "Data" ) );
+	XMLNode* dataElem = rootElem->InsertEndChild( doc->NewElement( "Data" ) );
 
 	XMLNode* timeElem = dataElem->InsertEndChild( doc->NewElement( "time" ) );
 	timeElem->InsertFirstChild(doc->NewText(vehinfo->sTransTime.c_str()));
@@ -1003,17 +1022,17 @@ XMLNode* head = doc->InsertEndChild(doc->NewDeclaration("xml version=\"1.0\" enc
 	log_Time();
 	printf("m_tcpSrvHandle=%x, send msg:%s\n", m_tcpSrvHandle, printer.CStr());
 	if(m_tcpSrvHandle)
-    {
-        unsigned char* buffer=new unsigned char[printer.CStrSize()+sizeof(MSG_Header)];
-        MSG_Header *header = (MSG_Header*)buffer;
-        header->identifer = 0xffffffff;
-        header->sequence = htonl(m_currSequence);
-        header->msglen = htonl(printer.CStrSize()+sizeof(MSG_Header));
-        header->msgcmd = htonl(0x1);
-        memcpy(buffer+sizeof(MSG_Header), printer.CStr(), printer.CStrSize());
+	{
+		unsigned char* buffer=new unsigned char[printer.CStrSize()+sizeof(MSG_Header)];
+		MSG_Header *header = (MSG_Header*)buffer;
+		header->identifer = 0xffffffff;
+		header->sequence = htonl(m_currSequence);
+		header->msglen = htonl(printer.CStrSize()+sizeof(MSG_Header));
+		header->msgcmd = htonl(0x1);
+		memcpy(buffer+sizeof(MSG_Header), printer.CStr(), printer.CStrSize());
 		m_tcpSrvHandle->SendMsg(m_currSocketHandle, (const char*)buffer, printer.CStrSize()+sizeof(MSG_Header));
-        delete buffer;
-    }
+		delete buffer;
+	}
 
 	delete doc;
 
@@ -1029,15 +1048,15 @@ int EtcRsu::ResonseVehNumber(VehInfo* vehinfo,int errcode)
 	XMLDocument* doc = new XMLDocument();
 	XMLNode* rootElem = doc->InsertEndChild( doc->NewElement( "MessageInfo" ) );
 
-    XMLNode* typeElem = rootElem->InsertEndChild( doc->NewElement( "sType" ) );
-    typeElem->InsertFirstChild(doc->NewText("qVehplateNo"));
+	XMLNode* typeElem = rootElem->InsertEndChild( doc->NewElement( "sType" ) );
+	typeElem->InsertFirstChild(doc->NewText("qVehplateNo"));
 
-    memset(buffer,0,sizeof(buffer));
-    sprintf(buffer,"%d",errcode);
-    XMLNode* codeElem = rootElem->InsertEndChild( doc->NewElement( "rCode" ) );
-    codeElem->InsertFirstChild(doc->NewText(buffer));
+	memset(buffer,0,sizeof(buffer));
+	sprintf(buffer,"%d",errcode);
+	XMLNode* codeElem = rootElem->InsertEndChild( doc->NewElement( "rCode" ) );
+	codeElem->InsertFirstChild(doc->NewText(buffer));
 
-    XMLNode* dataElem = rootElem->InsertEndChild( doc->NewElement( "Data" ) );
+	XMLNode* dataElem = rootElem->InsertEndChild( doc->NewElement( "Data" ) );
 
 	XMLNode* timeElem = dataElem->InsertEndChild( doc->NewElement( "VehplateNo" ) );
 	timeElem->InsertFirstChild(doc->NewText(vehinfo->sPlateNumber.c_str()));
@@ -1048,17 +1067,17 @@ int EtcRsu::ResonseVehNumber(VehInfo* vehinfo,int errcode)
 	log_Time();
 	printf("m_tcpSrvHandle=%x, send msg:%s\n", m_tcpSrvHandle, printer.CStr());
 	if(m_tcpSrvHandle)
-    {
-        unsigned char* buffer=new unsigned char[printer.CStrSize()+sizeof(MSG_Header)];
-        MSG_Header *header = (MSG_Header*)buffer;
-        header->identifer = 0xffffffff;
-        header->sequence = htonl(m_numberSequence);
-        header->msglen = htonl(printer.CStrSize()+sizeof(MSG_Header));
-        header->msgcmd = htonl(0x2);
-        memcpy(buffer+sizeof(MSG_Header), printer.CStr(), printer.CStrSize());
+	{
+		unsigned char* buffer=new unsigned char[printer.CStrSize()+sizeof(MSG_Header)];
+		MSG_Header *header = (MSG_Header*)buffer;
+		header->identifer = 0xffffffff;
+		header->sequence = htonl(m_numberSequence);
+		header->msglen = htonl(printer.CStrSize()+sizeof(MSG_Header));
+		header->msgcmd = htonl(0x2);
+		memcpy(buffer+sizeof(MSG_Header), printer.CStr(), printer.CStrSize());
 		m_tcpSrvHandle->SendMsg(m_numberSocketHandle, (const char*)buffer, printer.CStrSize()+sizeof(MSG_Header));
-        delete buffer;
-    }
+		delete buffer;
+	}
 	delete doc;
 
 	m_numberSocketHandle = NULL;
@@ -1115,58 +1134,58 @@ string  get_local_Time(void)
 
 
 /*
- //读配置文件初始化配置
+//读配置文件初始化配置
 void ReadConfigurationFile(EtcRsu etcRsu)  
 {  
-	XMLDocument doc;  
-	doc.LoadFile("bcspftp.xml");  
-	XMLElement *scene=doc.RootElement();  
-	XMLElement *surface=scene->LastChildElement("SysConfigure");  
-	XMLElement *surfaceChild=surface->FirstChildElement();  
+XMLDocument doc;  
+doc.LoadFile("bcspftp.xml");  
+XMLElement *scene=doc.RootElement();  
+XMLElement *surface=scene->LastChildElement("SysConfigure");  
+XMLElement *surfaceChild=surface->FirstChildElement();  
 
 
-	const char* devicechuan;  
-	const char* aerialtype; //天线类型 
-	const char* aerialpower; //天线功率 
-	const char* aerialrate;//天线波特率  
-	const char* serialnumber; //天线串口号 
-	const char* cardserialnumber; //读卡器串口号 
+const char* devicechuan;  
+const char* aerialtype; //天线类型 
+const char* aerialpower; //天线功率 
+const char* aerialrate;//天线波特率  
+const char* serialnumber; //天线串口号 
+const char* cardserialnumber; //读卡器串口号 
 
 
-	const XMLAttribute *attributeOfSurface = surface->FirstAttribute();  
-	cout<< attributeOfSurface->Name() << ":" << attributeOfSurface->Value() << endl;  
+const XMLAttribute *attributeOfSurface = surface->FirstAttribute();  
+cout<< attributeOfSurface->Name() << ":" << attributeOfSurface->Value() << endl;  
 
-	//总揽
-	devicechuan=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<devicechuan<<endl;  
-
-
-	//天线类型
-	aerialtype=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<aerialtype<<endl;  
-
-	//天线功率
-	aerialpower=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<aerialpower<<endl;  
-
-	//天线波特率
-	aerialrate=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<aerialrate<<endl;  
+//总揽
+devicechuan=surfaceChild->GetText();  
+surfaceChild=surfaceChild->NextSiblingElement();  
+cout<<devicechuan<<endl;  
 
 
-	//天线串口号
-	serialnumber=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<serialnumber<<endl;  
+//天线类型
+aerialtype=surfaceChild->GetText();  
+surfaceChild=surfaceChild->NextSiblingElement();  
+cout<<aerialtype<<endl;  
+
+//天线功率
+aerialpower=surfaceChild->GetText();  
+surfaceChild=surfaceChild->NextSiblingElement();  
+cout<<aerialpower<<endl;  
+
+//天线波特率
+aerialrate=surfaceChild->GetText();  
+surfaceChild=surfaceChild->NextSiblingElement();  
+cout<<aerialrate<<endl;  
 
 
-	//读卡器串口号
-	cardserialnumber=surfaceChild->GetText();  
-	cout<<cardserialnumber<<endl;  
+//天线串口号
+serialnumber=surfaceChild->GetText();  
+surfaceChild=surfaceChild->NextSiblingElement();  
+cout<<serialnumber<<endl;  
+
+
+//读卡器串口号
+cardserialnumber=surfaceChild->GetText();  
+cout<<cardserialnumber<<endl;  
 
 
 
