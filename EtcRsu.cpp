@@ -508,6 +508,26 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		m_currVehInfo.iPSAMTransSerial = 0;
 		m_currVehInfo.afterBlance = 0;
 
+
+
+		//判断obu是否被拆卸
+
+
+		int obus = 1;
+		obus  = ( obuStatus  & 0x40) >> 6;
+                cout <<"obus:"<<obus<<endl;
+cout <<"hello world"<<endl;
+		if(obuStatus == 1)
+		{
+			cout <<"obu is remove"<<endl;
+			ResonseVehCost(&m_currVehInfo,03); //返回obu拆卸信息
+			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+		}
+
+
+
+
+
 		///* 判断OBU过期 */ //todo
 		std::string  Enable_Data = Bin2Hex(msgB2->Dateoflssue,sizeof(msgB2->Dateoflssue)); 
 		std::string  Expiration_Data = Bin2Hex(msgB2->DateofExpire,sizeof(msgB2->DateofExpire)); 
@@ -518,7 +538,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		if(Enable_Data.compare(nowtime) >= 0 || Expiration_Data.compare(nowtime) <= 0)
 		{
 			cout <<"OBU已过期"<<endl;
-			ResonseVehCost(&m_currVehInfo,03); //返回超时消息
+			ResonseVehCost(&m_currVehInfo,04); //返回超时消息
 			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
 			return;
 		}	
