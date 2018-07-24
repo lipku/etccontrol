@@ -119,13 +119,6 @@ private:
 
 };
 
-typedef struct xml_configure
-{
-std::string serialnumber;
-int aerialpower;
-
-}Xconfigure;
 
 
-Xconfigure example2(void);
 #endif // ETCRSU_H

@@ -22,14 +22,10 @@ int main(int argc, char* argv[])
 
 	try {
 
-		Xconfigure xconfigure ;
-		xconfigure = example2();
-       //        xconfigure.serialnumber = "/dev/ttyS0";
-         //      xconfigure.aerialpower = 30;
 
 		EtcRsu etcRsu;
-		etcRsu.SetComm(xconfigure.serialnumber); //todo 设置串口名
-		etcRsu.SetPower(xconfigure.aerialpower); //todo
+		etcRsu.SetComm("/dev/ttyS0"); //todo 设置串口名
+		etcRsu.SetPower(30); //todo
 		etcRsu.SetWaitTime(0); //todo
 		//   char factors[] = {0xb1,0xb1,0xbe,0xa9,0xb1,0xb1,0xbe,0xa9};
 		//    vector<unsigned char> cardfactor(factors, factors+sizeof(factors));

@@ -485,6 +485,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		if (tmp >0)       ///* 判断OBU是否有卡 */
 		{
 			//	        printf("send C2 trance\n");
+			ResonseVehCost(&m_currVehInfo,02); //返回没卡消息
 			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
 			return;
 		}
@@ -517,6 +518,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		if(Enable_Data.compare(nowtime) >= 0 || Expiration_Data.compare(nowtime) <= 0)
 		{
 			cout <<"OBU已过期"<<endl;
+                        ResonseVehCost(&m_currVehInfo,03); //返回超时消息
 			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
 			return;
 		}	
@@ -543,6 +545,8 @@ void EtcRsu::receiveB3(std::vector<unsigned char>& buff)
 	//mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("OBU----标签号:%1;车牌号:%2; 车型:%3").arg(vehB3OBUID).arg(qVeh->mOBUPlate).arg(qVeh->mOBUCarType));
 	if(msgB3->ErrorCode != 0) //交易失败
 	{
+
+                ResonseVehCost(&m_currVehInfo,06); //B3 ErrorCode不为0
 		sendC2(msgB3->RSCTL,1,msgB3->OBUID);
 		return;
 	}
@@ -585,6 +589,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 
 	if(msgB4->ErrorCode != 0) //交易失败
 	{
+                ResonseVehCost(&m_currVehInfo,07); //返回B4 ErrorCode不为0
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
 		return;
 	}
@@ -602,6 +607,8 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	cardblance[1] = msgB4->CardRestMoney[2];
 	cardblance[2] = msgB4->CardRestMoney[1];
 	cardblance[3] = msgB4->CardRestMoney[0];
+
+
 	uint* itmp  = (uint*)&cardblance;
 	m_currVehInfo.beforeBlance =  *itmp;
 
@@ -620,6 +627,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	if(Enable_Data.compare(nowtime) >= 0 || Expiration_Data.compare(nowtime) <= 0)
 	{
 		cout<<"0015文件判断卡片过期"<<endl;
+                ResonseVehCost(&m_currVehInfo,05); //IC卡过期
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
 		return;
 
@@ -632,6 +640,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	if(B2_Issuerldentifier.compare(B4_0015_Issuerldentifier) != 0 && B4_0015_Issuerldentifier.compare("0000000000000000") != 0)
 	{
 		cout <<"B4_0015_Issuerldentifier not Not equal to B2_Issuerldentifier"<<endl;
+                ResonseVehCost(&m_currVehInfo,10); //发行方不一致
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
 		return;
 
@@ -663,6 +672,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	if(bnum >0)
 	{
 		cout <<"the card in blacklist"<<endl;
+                ResonseVehCost(&m_currVehInfo,12); //黑名单
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
 		return;
 	}
@@ -764,6 +774,7 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
 
 	}else{ //交易失败
 		printf("B5 fail\n");
+ResonseVehCost(&m_currVehInfo,11); //返回超时消息
 
 	}
 	printf("B5 Done\n");
@@ -860,13 +871,13 @@ void EtcRsu::run()
 		{
 			if((unsigned int)time(NULL)-m_lastRecvTime >6)
 			{
-				ResonseVehCost(&m_currVehInfo,20); //返回超时消息
+				ResonseVehCost(&m_currVehInfo,01); //返回超时消息
 			}
 		}
 		else if(m_numberSocketHandle)
 		{
 			if((unsigned int)time(NULL)-m_numberRecvTime > 6)
-				ResonseVehNumber(&m_currVehInfo,20); //返回超时消息
+				ResonseVehNumber(&m_currVehInfo,01); //返回超时消息
 			else if(!m_currVehInfo.sPlateNumber.empty())
 				ResonseVehNumber(&m_currVehInfo,0); 
 		}
@@ -1148,75 +1159,6 @@ string  get_local_Time(void)
 	return nowtime;
 }
 
-
-
-
-
-
-
-
-
-Xconfigure example2()  
-{  
-	Xconfigure xconfigure;
-	XMLDocument doc;  
-	doc.LoadFile("bcspftp.xml");  
-	XMLElement *scene=doc.RootElement();  
-	XMLElement *surface=scene->LastChildElement("SysConfigure");  
-	XMLElement *surfaceChild=surface->FirstChildElement();  
-
-
-	const char* devicechuan;  
-	const char* aerialtype; //天线类型 
-	const char* aerialpower; //天线功率 
-	const char* aerialrate;//天线波特率  
-	const char* serialnumber; //天线串口号 
-	const char* cardserialnumber; //读卡器串口号 
-
-
-	const XMLAttribute *attributeOfSurface = surface->FirstAttribute();  
-	cout<< attributeOfSurface->Name() << ":" << attributeOfSurface->Value() << endl;  
-
-	//总揽
-	devicechuan=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<devicechuan<<endl;  
-
-
-	//天线类型
-	aerialtype=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<aerialtype<<endl;  
-
-	//天线功率
-	aerialpower=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<aerialpower<<endl;  
-
-	int numtxgl;
-	std::stringstream stream; 
-	stream << aerialpower;
-	stream >> numtxgl;
-	xconfigure.aerialpower = numtxgl;
-
-
-	//天线波特率
-	aerialrate=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<aerialrate<<endl;  
-
-
-	//天线串口号
-	serialnumber=surfaceChild->GetText();  
-	surfaceChild=surfaceChild->NextSiblingElement();  
-	cout<<serialnumber<<endl;  
-	xconfigure.serialnumber = serialnumber;
-
-	//读卡器串口号
-	cardserialnumber=surfaceChild->GetText();  
-	cout<<cardserialnumber<<endl;  
-	return xconfigure;
-}  
 
 
 
