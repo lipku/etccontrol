@@ -127,5 +127,5 @@ int aerialpower;
 }Xconfigure;
 
 
-Xconfigure example2();
+Xconfigure example2(void);
 #endif // ETCRSU_H

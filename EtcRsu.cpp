@@ -518,6 +518,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		{
 			cout <<"OBU已过期"<<endl;
 			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+			return;
 		}	
 
 
@@ -530,6 +531,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 	else
 	{
 		sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+		return;
 	}
 }
 
@@ -619,6 +621,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	{
 		cout<<"0015文件判断卡片过期"<<endl;
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
+		return;
 
 	}
 
@@ -630,6 +633,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	{
 		cout <<"B4_0015_Issuerldentifier not Not equal to B2_Issuerldentifier"<<endl;
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
+		return;
 
 	}
 
@@ -660,6 +664,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	{
 		cout <<"the card in blacklist"<<endl;
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
+		return;
 	}
 
 
@@ -853,14 +858,14 @@ void EtcRsu::run()
 		}
 		else if(m_currSocketHandle)
 		{
-			if((unsigned int)time(NULL)-m_lastRecvTime >60)
+			if((unsigned int)time(NULL)-m_lastRecvTime >6)
 			{
 				ResonseVehCost(&m_currVehInfo,20); //返回超时消息
 			}
 		}
 		else if(m_numberSocketHandle)
 		{
-			if((unsigned int)time(NULL)-m_numberRecvTime > 60)
+			if((unsigned int)time(NULL)-m_numberRecvTime > 6)
 				ResonseVehNumber(&m_currVehInfo,20); //返回超时消息
 			else if(!m_currVehInfo.sPlateNumber.empty())
 				ResonseVehNumber(&m_currVehInfo,0); 
@@ -1132,8 +1137,8 @@ string  get_local_Time(void)
 	char chday[10];
 
 	sprintf(chyear, "%d", year);
-	sprintf(chmonth, "%2d", month);
-	sprintf(chday, "%2d", day);
+	sprintf(chmonth, "%02d", month);
+	sprintf(chday, "%02d", day);
 
 	string syear(chyear);
 	string smonth(chmonth);

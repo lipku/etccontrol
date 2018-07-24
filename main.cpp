@@ -23,9 +23,9 @@ int main(int argc, char* argv[])
 	try {
 
 		Xconfigure xconfigure ;
-		//xconfigure = example2()();
-                xconfigure.serialnumber = "/dev/ttyS0";
-                xconfigure.aerialpower = 30;
+		xconfigure = example2();
+       //        xconfigure.serialnumber = "/dev/ttyS0";
+         //      xconfigure.aerialpower = 30;
 
 		EtcRsu etcRsu;
 		etcRsu.SetComm(xconfigure.serialnumber); //todo 设置串口名

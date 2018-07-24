@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configure>
+    <SysConfigure name="user">
+        <username>Admin</username>
+        <pwd>MTIz</pwd>
+    </SysConfigure>
+    <SysConfigure name="UP">
+        <ipchuan>192.168.1.108,255.255.255.1000,192.168.7.7000,102.900.890.0000</ipchuan>
+        <ippath>192.168.1.108</ippath>
+        <subnetmask>255.255.255.1000</subnetmask>
+        <defaultgateway>192.168.7.7000</defaultgateway>
+        <dns>102.900.890.0000</dns>
+    </SysConfigure>
+    <SysConfigure name="sysconfig">
+        <syschuan>192.168.1.44,8081,8090,365,/tem/log,30,5</syschuan>
+        <addr>192.168.1.44</addr>
+        <sysport>8081</sysport>
+        <localport>8090</localport>
+        <dataday>365</dataday>
+        <logpath>/tem/log</logpath>
+        <logday>30</logday>
+        <min>5</min>
+    </SysConfigure>
+    <SysConfigure name="deviceconfig">
+        <devicechuan>juli,1,1001,/dev/tyySAC,/dev/tyySAC</devicechuan>
+        <aerialtype>juli</aerialtype>
+        <aerialpower>1</aerialpower>
+        <aerialrate>1001</aerialrate>
+        <serialnumber>/dev/ttyS0</serialnumber>
+        <cardserialnumber>/dev/tyySAC</cardserialnumber>
+    </SysConfigure>
+</Configure>
