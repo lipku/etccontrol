@@ -518,7 +518,7 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		if(Enable_Data.compare(nowtime) >= 0 || Expiration_Data.compare(nowtime) <= 0)
 		{
 			cout <<"OBU已过期"<<endl;
-                        ResonseVehCost(&m_currVehInfo,03); //返回超时消息
+			ResonseVehCost(&m_currVehInfo,03); //返回超时消息
 			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
 			return;
 		}	
@@ -546,7 +546,7 @@ void EtcRsu::receiveB3(std::vector<unsigned char>& buff)
 	if(msgB3->ErrorCode != 0) //交易失败
 	{
 
-                ResonseVehCost(&m_currVehInfo,06); //B3 ErrorCode不为0
+		ResonseVehCost(&m_currVehInfo,06); //B3 ErrorCode不为0
 		sendC2(msgB3->RSCTL,1,msgB3->OBUID);
 		return;
 	}
@@ -589,7 +589,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 
 	if(msgB4->ErrorCode != 0) //交易失败
 	{
-                ResonseVehCost(&m_currVehInfo,07); //返回B4 ErrorCode不为0
+		ResonseVehCost(&m_currVehInfo,07); //返回B4 ErrorCode不为0
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
 		return;
 	}
@@ -627,7 +627,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	if(Enable_Data.compare(nowtime) >= 0 || Expiration_Data.compare(nowtime) <= 0)
 	{
 		cout<<"0015文件判断卡片过期"<<endl;
-                ResonseVehCost(&m_currVehInfo,05); //IC卡过期
+		ResonseVehCost(&m_currVehInfo,05); //IC卡过期
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
 		return;
 
@@ -640,7 +640,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	if(B2_Issuerldentifier.compare(B4_0015_Issuerldentifier) != 0 && B4_0015_Issuerldentifier.compare("0000000000000000") != 0)
 	{
 		cout <<"B4_0015_Issuerldentifier not Not equal to B2_Issuerldentifier"<<endl;
-                ResonseVehCost(&m_currVehInfo,10); //发行方不一致
+		ResonseVehCost(&m_currVehInfo,10); //发行方不一致
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
 		return;
 
@@ -672,7 +672,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	if(bnum >0)
 	{
 		cout <<"the card in blacklist"<<endl;
-                ResonseVehCost(&m_currVehInfo,12); //黑名单
+		ResonseVehCost(&m_currVehInfo,12); //黑名单
 		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
 		return;
 	}
@@ -774,7 +774,7 @@ void EtcRsu::receiveB5(std::vector<unsigned char>& buff)
 
 	}else{ //交易失败
 		printf("B5 fail\n");
-ResonseVehCost(&m_currVehInfo,11); //返回超时消息
+		ResonseVehCost(&m_currVehInfo,11); //返回超时消息
 
 	}
 	printf("B5 Done\n");
@@ -1195,5 +1195,6 @@ int blacklist_lookup(std::string blacklist)
 
 	nc=sqlite3_get_table(db, sql.c_str(), &dbResult, &nRow, &nColumn, &errmsg);
 	printf("result = %d\n",nc);
-	return rc;
+	printf("nRow:%d\n",nRow);
+	return nRow;
 }
