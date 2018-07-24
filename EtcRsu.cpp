@@ -571,7 +571,7 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	//mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("IC卡信息加入队列,OBUID:%1;").arg(sOBUID));  ///*日志
 	//
 	pthread_mutex_lock(&m_vehMutex);
-	if (m_currVehNumer.empty()) //当前没收到扣费请求
+	if (m_currVehNumer.empty() || !m_currSocketHandle) //当前没收到扣费请求
 	{
 		printf("not received pay request\n");
 		pthread_mutex_unlock(&m_vehMutex);
