@@ -7,6 +7,7 @@ set(CMAKE_BUILD_TYPE "Debug")
 ## Target
 set(ETC_SRCS main.cpp AsyncSerial.cpp BufferedAsyncSerial.cpp EtcRsu.cpp AsioTcp.cpp AsioTcpServer.cpp tinyxml2.cpp)
 add_executable(etccontrol ${ETC_SRCS})
+add_definitions(-lsqlite3)
 
 ## Link libraries
 set(BOOST_LIBS thread date_time system)

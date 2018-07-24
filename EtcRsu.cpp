@@ -4,7 +4,7 @@
 #include <sys/time.h>
 #include <time.h> 
 #include "AsioTcpServer.h"
-
+#include <sqlite3.h>
 #include "tinyxml2.h"
 using namespace tinyxml2;
 using namespace std;
@@ -649,7 +649,18 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 
 
 
-//判断是否绑定黑名单
+	//判断是否绑定黑名单
+
+	std::string B4_0015_CardNetNo = Bin2Hex((unsigned char*)msgB4->f0015.CardNetNo,sizeof(msgB4->f0015.CardNetNo));
+	std::string B4_0015_CardID = Bin2Hex((unsigned char*)msgB4->f0015.CardID,sizeof(msgB4->f0015.CardID));
+	std::string black_list = B4_0015_CardNetNo + B4_0015_CardID;
+	cout <<"black_list is:"<<black_list<<endl;
+	int bnum = blacklist_lookup(black_list);
+	if(bnum >0)
+	{
+		cout <<"the card in blacklist"<<endl;
+		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
+	}
 
 
 
@@ -842,14 +853,14 @@ void EtcRsu::run()
 		}
 		else if(m_currSocketHandle)
 		{
-			if((unsigned int)time(NULL)-m_lastRecvTime >6)
+			if((unsigned int)time(NULL)-m_lastRecvTime >60)
 			{
 				ResonseVehCost(&m_currVehInfo,20); //返回超时消息
 			}
 		}
 		else if(m_numberSocketHandle)
 		{
-			if((unsigned int)time(NULL)-m_numberRecvTime > 6)
+			if((unsigned int)time(NULL)-m_numberRecvTime > 60)
 				ResonseVehNumber(&m_currVehInfo,20); //返回超时消息
 			else if(!m_currVehInfo.sPlateNumber.empty())
 				ResonseVehNumber(&m_currVehInfo,0); 
@@ -1133,60 +1144,109 @@ string  get_local_Time(void)
 }
 
 
-/*
-//读配置文件初始化配置
-void ReadConfigurationFile(EtcRsu etcRsu)  
+
+
+
+
+
+
+
+Xconfigure example2()  
 {  
-XMLDocument doc;  
-doc.LoadFile("bcspftp.xml");  
-XMLElement *scene=doc.RootElement();  
-XMLElement *surface=scene->LastChildElement("SysConfigure");  
-XMLElement *surfaceChild=surface->FirstChildElement();  
+	Xconfigure xconfigure;
+	XMLDocument doc;  
+	doc.LoadFile("bcspftp.xml");  
+	XMLElement *scene=doc.RootElement();  
+	XMLElement *surface=scene->LastChildElement("SysConfigure");  
+	XMLElement *surfaceChild=surface->FirstChildElement();  
 
 
-const char* devicechuan;  
-const char* aerialtype; //天线类型 
-const char* aerialpower; //天线功率 
-const char* aerialrate;//天线波特率  
-const char* serialnumber; //天线串口号 
-const char* cardserialnumber; //读卡器串口号 
+	const char* devicechuan;  
+	const char* aerialtype; //天线类型 
+	const char* aerialpower; //天线功率 
+	const char* aerialrate;//天线波特率  
+	const char* serialnumber; //天线串口号 
+	const char* cardserialnumber; //读卡器串口号 
 
 
-const XMLAttribute *attributeOfSurface = surface->FirstAttribute();  
-cout<< attributeOfSurface->Name() << ":" << attributeOfSurface->Value() << endl;  
+	const XMLAttribute *attributeOfSurface = surface->FirstAttribute();  
+	cout<< attributeOfSurface->Name() << ":" << attributeOfSurface->Value() << endl;  
 
-//总揽
-devicechuan=surfaceChild->GetText();  
-surfaceChild=surfaceChild->NextSiblingElement();  
-cout<<devicechuan<<endl;  
-
-
-//天线类型
-aerialtype=surfaceChild->GetText();  
-surfaceChild=surfaceChild->NextSiblingElement();  
-cout<<aerialtype<<endl;  
-
-//天线功率
-aerialpower=surfaceChild->GetText();  
-surfaceChild=surfaceChild->NextSiblingElement();  
-cout<<aerialpower<<endl;  
-
-//天线波特率
-aerialrate=surfaceChild->GetText();  
-surfaceChild=surfaceChild->NextSiblingElement();  
-cout<<aerialrate<<endl;  
+	//总揽
+	devicechuan=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<devicechuan<<endl;  
 
 
-//天线串口号
-serialnumber=surfaceChild->GetText();  
-surfaceChild=surfaceChild->NextSiblingElement();  
-cout<<serialnumber<<endl;  
+	//天线类型
+	aerialtype=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<aerialtype<<endl;  
+
+	//天线功率
+	aerialpower=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<aerialpower<<endl;  
+
+	int numtxgl;
+	std::stringstream stream; 
+	stream << aerialpower;
+	stream >> numtxgl;
+	xconfigure.aerialpower = numtxgl;
 
 
-//读卡器串口号
-cardserialnumber=surfaceChild->GetText();  
-cout<<cardserialnumber<<endl;  
+	//天线波特率
+	aerialrate=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<aerialrate<<endl;  
+
+
+	//天线串口号
+	serialnumber=surfaceChild->GetText();  
+	surfaceChild=surfaceChild->NextSiblingElement();  
+	cout<<serialnumber<<endl;  
+	xconfigure.serialnumber = serialnumber;
+
+	//读卡器串口号
+	cardserialnumber=surfaceChild->GetText();  
+	cout<<cardserialnumber<<endl;  
+	return xconfigure;
+}  
 
 
 
-}*/ 
+
+//黑明单判断函数
+int blacklist_lookup(std::string blacklist)
+{
+	char re = 0;
+	char *errmsg=NULL;    //用来存储错误信息字符串
+	char ret=0;
+	int my_age=0;    //类型根据要提取的数据类型而定
+	char **dbResult;
+	int nRow=0, nColumn=0;     //nRow 查找出的总行数,nColumn 存储列
+
+	std::string sql = "select count(cardno) from t_blacklist where cardno = ";
+	std::string Single_quotation = "'";
+	std::string addone = "1";
+	blacklist = addone + blacklist;
+	blacklist = Single_quotation + blacklist;
+	blacklist = blacklist + Single_quotation; 
+	cout <<"hello i am blacklist :"<<blacklist<<endl;
+	sql = sql + blacklist;
+	std::cout <<sql <<std::endl;;
+	sqlite3 *db = NULL;
+	int rc = 0;
+	int nc = 0;
+	rc = sqlite3_open("BlackList.db", &db); 
+	if(rc)
+	{
+		printf("open err\n");
+
+	}
+	printf("open suc\n");
+
+	nc=sqlite3_get_table(db, sql.c_str(), &dbResult, &nRow, &nColumn, &errmsg);
+	printf("result = %d\n",nc);
+	return rc;
+}

@@ -12,7 +12,7 @@ typedef void* socket_handle;
 using namespace std;
 char*   log_Time(void);
 string  get_local_Time(void) ;
-
+int blacklist_lookup(std::string blacklist);
 struct VehInfo
 {
     //B2
@@ -119,5 +119,13 @@ private:
 
 };
 
-void ReadConfigurationFile(EtcRsu etcRsu) ;
+typedef struct xml_configure
+{
+std::string serialnumber;
+int aerialpower;
+
+}Xconfigure;
+
+
+Xconfigure example2();
 #endif // ETCRSU_H
