@@ -509,22 +509,21 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		m_currVehInfo.afterBlance = 0;
 
 
-
+/*
 		//判断obu是否被拆卸
 
 
-		int obus = 1;
-		obus  = ( obuStatus  & 0x40) >> 6;
+                int obus = (obuStatus  & 0x02) >> 1;
                 cout <<"obus:"<<obus<<endl;
-cout <<"hello world"<<endl;
-		if(obuStatus == 1)
+		if(obus == 1)
 		{
 			cout <<"obu is remove"<<endl;
 			ResonseVehCost(&m_currVehInfo,03); //返回obu拆卸信息
-			sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+         		sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+return;
 		}
 
-
+*/
 
 
 
