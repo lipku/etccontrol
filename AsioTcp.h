@@ -14,10 +14,11 @@ public:
  virtual void OnRecvData(socket_handle socket, const char* pData, unsigned int nDataSize) = 0;
 };
 
+class CAsioTcp;
 class CTcpSession
 {
 public:
- CTcpSession(boost::asio::io_service& ioService, INetCallback* pINetCallback);
+ CTcpSession(boost::asio::io_service& ioService, CAsioTcp* pParent, INetCallback* pINetCallback);
  void   HandleRead(const boost::system::error_code& ec, size_t bytes_transferred);
  void   HandleWrite(const boost::system::error_code& ec);
  void   StartRead();
@@ -28,6 +29,7 @@ private:
  enum { max_length = 1024 };
  char m_dataRecvBuff[max_length];
  socket_t m_socket;
+ CAsioTcp* m_pParent;
  INetCallback* m_pINetCallback;
 };
 
@@ -43,6 +45,7 @@ public:
 
  void   SendMsg(socket_handle socket, const char* pData, unsigned int nDataSize);
  void   Start();
+ int 	RemoveConn(CTcpSession* pTcpSession);
 private:
  void   StartAccept();
  void   AcceptHandler(const boost::system::error_code& ec, CTcpSession* pTcpSession);
@@ -52,4 +55,7 @@ private:
  boost::thread backgroundThread;
  acceptor m_pAcceptor;
  INetCallback* m_pINetCallback;
+
+ pthread_mutex_t m_connMutex;
+ std::vector<CTcpSession*> mConnList;
 };

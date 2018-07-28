@@ -21,5 +21,5 @@ public:
 private:
  CAsioTcp* m_pAsioTcp;
  EtcRsu* m_pEtcRsu;
- //socket_handle m_currConn;
+ 
 };
