@@ -8,6 +8,11 @@
 #include "RsuMsg.h"
 
 typedef void* socket_handle;
+//线程 写天线的状态
+void aerial_state_fail();
+
+//写天线的状态 成功的情况
+void aerial_state_suc() ;
 
 using namespace std;
 char*   log_Time(void);

@@ -447,6 +447,19 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 	//QDateTime qTmpTime = QDateTime::currentDateTime();
 	//mRsuHardTime = qTmpTime;
 	//mLog->loggerInfo(qTmpTime,MOUDLE_ASSISTANT_LOGGER,QString("VST---错误代码:%1;").arg(msgB2->ErrCode));
+
+
+	pthread_mutex_lock(&m_vehMutex);                                                                                                                                                               
+	if (m_currVehNumer.empty() || !m_currSocketHandle) //当前没收到扣费请求
+	{
+		printf("not received pay request\n");
+		pthread_mutex_unlock(&m_vehMutex);
+		sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+		return;
+	}
+	pthread_mutex_unlock(&m_vehMutex);
+
+
 	if (msgB2->ErrCode == 0x80)
 	{       
 	}
@@ -462,6 +475,9 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		    }
 		    pthread_mutex_unlock(&m_vehMutex);
 		    */
+		//天线成功的情况
+		//aerial_state_suc() 
+
 		unsigned char tmp=0;
 		unsigned char obuStatus = msgB2->OBUStatus[0];
 		tmp = obuStatus &(unsigned char) 0x80;
@@ -509,18 +525,18 @@ void EtcRsu::receiveB2(std::vector<unsigned char>& buff)
 		m_currVehInfo.afterBlance = 0;
 
 
-/*
+		/*
 		//判断obu是否被拆卸
 
 
-                int obus = (obuStatus  & 0x02) >> 1;
-                cout <<"obus:"<<obus<<endl;
+		int obus = (obuStatus  & 0x02) >> 1;
+		cout <<"obus:"<<obus<<endl;
 		if(obus == 1)
 		{
-			cout <<"obu is remove"<<endl;
-			ResonseVehCost(&m_currVehInfo,03); //返回obu拆卸信息
-         		sendC2(msgB2->RSCTL,1,msgB2->OBUID);
-return;
+		cout <<"obu is remove"<<endl;
+		ResonseVehCost(&m_currVehInfo,03); //返回obu拆卸信息
+		sendC2(msgB2->RSCTL,1,msgB2->OBUID);
+		return;
 		}
 
 */
@@ -551,6 +567,8 @@ return;
 	}
 	else
 	{
+		//天线失败的情况
+		//aerial_state_fail() ;
 		sendC2(msgB2->RSCTL,1,msgB2->OBUID);
 		return;
 	}
@@ -595,15 +613,6 @@ void EtcRsu::receiveB4(std::vector<unsigned char>& buff)
 	//mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("IC---错误代码:%1;").arg(msgB4->ErrorCode));
 	//mLog->loggerInfo(QDateTime::currentDateTime(),MOUDLE_ASSISTANT_LOGGER,QString("IC卡信息加入队列,OBUID:%1;").arg(sOBUID));  ///*日志
 	//
-	pthread_mutex_lock(&m_vehMutex);
-	if (m_currVehNumer.empty() || !m_currSocketHandle) //当前没收到扣费请求
-	{
-		printf("not received pay request\n");
-		pthread_mutex_unlock(&m_vehMutex);
-		sendC2(msgB4->RSCTL,1,msgB4->OBUID);
-		return;
-	}
-	pthread_mutex_unlock(&m_vehMutex);
 
 
 	if(msgB4->ErrorCode != 0) //交易失败
@@ -1217,3 +1226,56 @@ int blacklist_lookup(std::string blacklist)
 	printf("nRow:%d\n",nRow);
 	return nRow;
 }
+
+
+//线程 写盒子的状态
+void* box_state()
+{
+	/*
+	   sleep(60);
+	//写盒子状态
+	int rc = 0;
+
+	rc = sqlite3_open("depot.db", &db);
+	sql = "INSERT INTO /"SensorData/" (哪一项)VALUES(1);" ;  
+
+	sqlite3_exec( db , sql , 0 , 0 , &zErrMsg );  
+	return 0;
+	*/
+}
+
+
+
+
+//写天线的状态 失败的情况
+void aerial_state_fail()
+{
+	/*
+	//写盒子状态
+	int rc = 0;
+
+	rc = sqlite3_open("depot.db", &db);
+	sql = "INSERT INTO /"SensorData/" (哪一项)VALUES(0);" ;  
+
+	sqlite3_exec( db , sql , 0 , 0 , &zErrMsg );  
+	*/
+}
+
+
+
+
+
+//写天线的状态 成功的情况
+void aerial_state_suc()
+{
+	/*
+	//写盒子状态
+	int rc = 0;
+
+	rc = sqlite3_open("depot.db", &db);
+	sql = "INSERT INTO /"SensorData/" (哪一项)VALUES(1);" ;  
+
+	sqlite3_exec( db , sql , 0 , 0 , &zErrMsg );  
+	*/
+}
+

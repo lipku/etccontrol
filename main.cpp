@@ -32,6 +32,16 @@ int main(int argc, char* argv[])
 		//   etcRsu.SetCardFactor(cardfactor); //todo 卡一级分散因子
 		etcRsu.init();
 
+		//盒子状态
+		//int ret = pthread_create(&tids[i], NULL, box_state, NULL);
+
+
+
+
+
+
+
+
 		//ReadConfigurationFile(etcRsu) ;
 		AsioTcpServer tcpSrv(2000,&etcRsu);
 		etcRsu.SetTcpSrvHandle(&tcpSrv);
@@ -39,6 +49,9 @@ int main(int argc, char* argv[])
 
 		while(getchar()!='q')
 			sleep(1);
+
+
+
 
 		return 0;
 
