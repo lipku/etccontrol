@@ -6,6 +6,8 @@
 #include "AsioTcpServer.h"
 #include <sqlite3.h>
 #include "tinyxml2.h"
+#include <boost/locale.hpp>
+
 using namespace tinyxml2;
 using namespace std;
 
@@ -592,8 +594,9 @@ void EtcRsu::receiveB3(std::vector<unsigned char>& buff)
 	B3_PlateNumber = Bin2Hex((unsigned char*)msgB3->PlateNumber,sizeof(msgB3->PlateNumber));
 	cout <<"B3_PlateNumber:"<<B3_PlateNumber<<endl;
 
-	printf("car number=%s\n", msgB3->PlateNumber);
 	m_currVehInfo.sPlateNumber = std::string((const char*)msgB3->PlateNumber);//Bin2Hex(msgB3->PlateNumber, sizeof(msgB3->PlateNumber));
+	//m_currVehInfo.sPlateNumber = boost::locale::conv::to_utf<char>((const char*)msgB3->PlateNumber, std::string("gb2312"));
+	printf("car number=%s\n", m_currVehInfo.sPlateNumber);
 
 	//if(!m_currVehInfo.sPlateNumber.compare(m_currVehNumer)) //todo
 	sendC1(msgB3->RSCTL,msgB3->OBUID,mCardFactor);//////////////
