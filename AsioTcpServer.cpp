@@ -1,7 +1,9 @@
 #include "AsioTcpServer.h"
 #include "EtcRsu.h"
 #include "RsuMsg.h"
-
+#include <sstream>
+#include <stdio.h>
+#include <string.h>
 #include "tinyxml2.h"
 using namespace tinyxml2;
 
@@ -82,6 +84,38 @@ void AsioTcpServer::OnRecvData( socket_handle socket, const char* pData, unsigne
 					else
 					{
 						m_pEtcRsu->AddVehCost(socket,ntohl(header->sequence),string(vehNo),money);
+
+
+
+
+						char sql[200] = {0};
+						char  guid[40];
+						random_uuid(guid);
+						char  *localtime = (char*)malloc(sizeof(char)* 30); 
+						localtime = getNowTime();
+						cout <<"localtime---------------------------:"<<localtime<<endl;;
+
+						string time;
+						stringstream ss;
+						ss<<localtime;
+						ss>>time;
+
+                                                string suuid;
+						ss<<guid;
+ 						suuid = guid;
+
+                                                string head = "INSERT INTO T_transaction (local_serial_no , record_time , request_serial_no , trans_time ,trans_amount ) VALUES (\"";
+
+                                                string sql123 = head + suuid + "\"" + ",\"" + time + "\"";
+ 						cout <<"------------sql:"<<sql123<<endl;
+
+
+
+                                               //INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
+                                               //VALUES (1, 'Paul', 32, 'California', 20000.00 );
+
+
+
 					}		
 
 				}

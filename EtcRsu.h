@@ -1,21 +1,22 @@
 #ifndef ETCRSU_H
 #define ETCRSU_H
-
+#include <sqlite3.h>
 #include <string>
 #include <vector>
 #include <pthread.h>
 #include "BufferedAsyncSerial.h"
 #include "RsuMsg.h"
-
+char *random_uuid( char buf[37] );
 typedef void* socket_handle;
 //线程 写天线的状态
 void aerial_state_fail();
-
+static sqlite3 *db = NULL;
 //写天线的状态 成功的情况
 void aerial_state_suc() ;
 
 using namespace std;
 char*   log_Time(void);
+char*  getNowTime();
 string  get_local_Time(void) ;
 int blacklist_lookup(std::string blacklist);
 struct VehInfo

@@ -1158,6 +1158,28 @@ char*   log_Time(void)
 	printf("now time is %ld\n",ts);
 }
 
+
+
+
+
+char*  getNowTime()
+ {
+     timespec time;
+     clock_gettime(CLOCK_REALTIME, &time);  //获取相对于1970到现在的秒数
+     tm nowTime;
+     localtime_r(&time.tv_sec, &nowTime);
+     char current[1024];
+     sprintf(current, "%04d:%02d:%02d:%02d:%02d:%02d", nowTime.tm_year + 1900, nowTime.tm_mon+1, nowTime.tm_mday, 
+      nowTime.tm_hour, nowTime.tm_min, nowTime.tm_sec);
+      return current;
+ }
+
+
+
+
+
+
+
 string  get_local_Time(void)                                                                                                                                                           
 {
 	struct  tm      *ptm;
@@ -1170,6 +1192,7 @@ string  get_local_Time(void)
 	int year = ptm->tm_year+1900;
 	int month = ptm->tm_mon+1;
 	int day = ptm->tm_mday;
+
 
 	char chyear[10];
 	char chmonth[10];
@@ -1210,10 +1233,10 @@ int blacklist_lookup(std::string blacklist)
 	cout <<"hello i am blacklist :"<<blacklist<<endl;
 	sql = sql + blacklist;
 	std::cout <<sql <<std::endl;;
-	sqlite3 *db = NULL;
+	sqlite3 *db_black = NULL;
 	int rc = 0;
 	int nc = 0;
-	rc = sqlite3_open("BlackList.db", &db); 
+	rc = sqlite3_open("BlackList.db", &db_black); 
 	if(rc)
 	{
 		printf("open err\n");
@@ -1221,7 +1244,7 @@ int blacklist_lookup(std::string blacklist)
 	}
 	printf("open suc\n");
 
-	nc=sqlite3_get_table(db, sql.c_str(), &dbResult, &nRow, &nColumn, &errmsg);
+	nc=sqlite3_get_table(db_black, sql.c_str(), &dbResult, &nRow, &nColumn, &errmsg);
 	printf("result = %d\n",nc);
 	printf("nRow:%d\n",nRow);
 	return nRow;
@@ -1277,5 +1300,43 @@ void aerial_state_suc()
 
 	sqlite3_exec( db , sql , 0 , 0 , &zErrMsg );  
 	*/
+}
+
+
+//生成uuid
+char *random_uuid( char buf[37] )
+{
+    const char *c = "89ab";
+    char *p = buf;
+    int n;
+    for( n = 0; n < 16; ++n )
+    {
+        int b = rand()%255;
+        switch( n )
+        {
+            case 6:
+                sprintf(p, "4%x", b%15 );
+            break;
+            case 8:
+                sprintf(p, "%c%x", c[rand()%strlen(c)], b%15 );
+            break;
+            default:
+                sprintf(p, "%02x", b);
+            break;
+        }
+ 
+        p += 2;
+        switch( n )
+        {
+            case 3:
+            case 5:
+            case 7:
+            case 9:
+                *p++ = '-';
+                break;
+        }
+    }
+    *p = 0;
+    return buf;
 }
 

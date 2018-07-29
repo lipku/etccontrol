@@ -2,12 +2,13 @@
 #include <iostream>
 #include <unistd.h>
 #include <boost/thread.hpp>
-
 #include "EtcRsu.h"
 #include "AsioTcpServer.h"
 
 using namespace std;
 using namespace boost;
+
+
 
 int main(int argc, char* argv[])
 {
@@ -36,10 +37,14 @@ int main(int argc, char* argv[])
 		//int ret = pthread_create(&tids[i], NULL, box_state, NULL);
 
 
+		int rc = 0;
+		rc = sqlite3_open("depot.db", &db);
+		if(rc)
+		{
+			printf("open err\n");
 
-
-
-
+		}
+		printf("open suc\n");
 
 
 		//ReadConfigurationFile(etcRsu) ;
